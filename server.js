@@ -1,7 +1,7 @@
 //Install express server
 const express = require('express');
 const path = require('path');
-const http = require("http");
+const https = require("http");
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.get('/*', function(req,res) {
 });
 
 setInterval(function() {
-    http.get("https://bettingapp.herokuapp.com");
+    https.get("https://bettingapp.herokuapp.com");
    console.log("--ping--");
 }, 300000); // every 5 minutes (300000)
 
