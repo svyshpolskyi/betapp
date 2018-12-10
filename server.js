@@ -1,3 +1,4 @@
+import ping from "./ping"
 //Install express server
 const express = require('express');
 const path = require('path');
@@ -13,10 +14,7 @@ app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname+'/dist/betapp/index.html'));
 });
 
-setInterval(function() {
-    http.get("http://bettingapp.herokuapp.com");
-   console.log("--ping--");
-}, 300000); // every 5 minutes (300000)
+ping();
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
