@@ -9,6 +9,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { MainComponent } from "./main/main.component";
 import { PersonalComponent } from "./main/personal/personal.component";
 import { FooterService } from "./footer/footer.service";
+import { MatchComponent } from "./components/match/match.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FooterService } from "./footer/footer.service";
     HeaderComponent,
     MainComponent,
     PersonalComponent,
-    FooterComponent
+    FooterComponent,
+    MatchComponent
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [FooterService],
