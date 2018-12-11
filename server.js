@@ -1,8 +1,7 @@
-import ping from "./ping"
+const ping = require("./ping.js");
 //Install express server
 const express = require('express');
 const path = require('path');
-const http = require("http");
 
 const app = express();
 
@@ -14,7 +13,7 @@ app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname+'/dist/betapp/index.html'));
 });
 
-ping();
+ping.ping();
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
