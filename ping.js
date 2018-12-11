@@ -1,3 +1,5 @@
+const http = require("http");
+
 module.exports = {
   ping: function ping() {
     setInterval(function () {
