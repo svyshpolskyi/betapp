@@ -1,0 +1,16 @@
+<div [ngClass]="{ admin: viewMode === 'admin', user: viewMode === 'user' }">
+  <div class="team">
+    <div class="teamName">{{ teamName }}</div>
+    <div class="teamLogo" *ngIf="teamLogo">
+      <img src="{{teamLogo}}" alt="" />
+    </div>
+    <div class="scoreTeam" (click)="setScore()" *ngIf="viewMode === 'user'">
+      <span>{{ score }}</span>
+      <app-score-selector
+        [visible]="displaySelections"
+        class="scoreSelector"
+        (resultSelected)="onResultSelected($event)"
+      ></app-score-selector>
+    </div>
+  </div>
+</div>

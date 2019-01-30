@@ -1,64 +1,43 @@
-<!-- <div class="card text-white bg-info mb-3"> -->
-<!-- <div class="card-header league"> -->
-<!-- <div><img src="{{leagueLogo}}" alt="" class="leagueLogo" /></div> -->
-<!-- <div class="leagueName">ENGLAND: Premier League</div> -->
-<!-- <div class="round">Round 15</div> -->
-<!-- </div> -->
-<!-- <div class="card-body"> -->
-<!-- <h5 class="card-title text-center"></h5> -->
-<!-- <div class="card-text"> -->
-<!-- <div class="team1">Manchester Utd</div> -->
-<!-- <div class="team1Logo"> -->
-<!-- <img src="{{team1Logo}}" alt="" class="team1Logo" /> -->
-<!-- </div> -->
-<!-- <div class="date">Wed, 6/12 21:45</div> -->
-<!-- <div class="team2Logo"> -->
-<!-- <img src="{{team2Logo}}" alt="" class="team2Logo" /> -->
-<!-- </div> -->
-<!-- <div class="team2">Arsenal</div> -->
-<!-- </div> -->
-<!-- </div> -->
-<!-- </div> -->
-
-<div class="match">
-  <div class="match-info">
-    <div class="leagueLogo"><img src="{{leagueLogo}}" alt="" /></div>
-    <div class="date">Wed, 6/12 21:45</div>
-  </div>
-  <div class="match-header">
-    <div class="leagueName">ENGLAND: Premier League</div>
-    <div class="round">Round 15</div>
-  </div>
-  <div class="match-body">
-    <div class="team1">Manchester Utd</div>
-    <div class="team1Logo">
-      <img src="{{team1Logo}}" alt="" class="team1Logo" />
+<div
+  [ngClass]="{
+    admin: viewMode === 'admin',
+    user: viewMode === 'user'
+  }"
+>
+  <div
+    class="match"
+    (click)="selectMatch(match)"
+    [ngClass]="{ matchSelected: selected }"
+  >
+    <div class="match-info">
+      <div class="leagueLogo" *ngIf="viewMode === 'user'">
+        <img [src]="leagues[match.league_id].league_logo" alt="" />
+      </div>
+      <div class="date">{{ match.event_date | formatDate }}</div>
     </div>
-    <div class="score">2-2</div>
-    <div class="team2Logo">
-      <img src="{{team2Logo}}" alt="" class="team2Logo" />
+    <div class="match-header" *ngIf="viewMode === 'user'">
+      <div class="leagueName">
+        {{ leagues[match.league_id].league_country | uppercase }}:
+        {{ leagues[match.league_id].league_name }}
+      </div>
+      <div class="round">{{ match.round | formatRound }}</div>
     </div>
-    <div class="team2">Arsenal</div>
-  </div>
-</div>
-<div class="match">
-  <div class="match-info">
-    <div class="leagueLogo"><img src="{{leagueLogo}}" alt="" /></div>
-    <div class="date">Wed, 6/12 21:45</div>
-  </div>
-  <div class="match-header">
-    <div class="leagueName">ENGLAND: Premier League</div>
-    <div class="round">Round 15</div>
-  </div>
-  <div class="match-body">
-    <div class="team1">Manchester Utd</div>
-    <div class="team1Logo">
-      <img src="{{team1Logo}}" alt="" class="team1Logo" />
+    <div class="match-body">
+      <div class="team1">
+        <app-team
+          [teamName]="match.homeTeam"
+          [teamLogo]="logos ? logos[match.homeTeam_id] : false"
+          [viewMode]="viewMode"
+        ></app-team>
+      </div>
+      <div class="separator" *ngIf="viewMode === 'admin'">-</div>
+      <div class="team2">
+        <app-team
+          [teamName]="match.awayTeam"
+          [teamLogo]="logos ? logos[match.awayTeam_id] : false"
+          [viewMode]="viewMode"
+        ></app-team>
+      </div>
     </div>
-    <div class="score">2-2</div>
-    <div class="team2Logo">
-      <img src="{{team2Logo}}" alt="" class="team2Logo" />
-    </div>
-    <div class="team2">Arsenal</div>
   </div>
 </div>

@@ -1,0 +1,13 @@
+<div *ngIf="(matchDetails$ | async) as matchDetails">
+  <h3 class="roundHeader">Round {{ matchDetails.tournament.length }}</h3>
+  <div class="row">
+    <app-match
+      *ngFor="let match of matchDetails.matches"
+      [match]="match"
+      [logos]="matchDetails.teamLogos"
+      [leagues]="matchDetails.leagues"
+      [viewMode]="viewMode"
+      class="col-md-6"
+    ></app-match>
+  </div>
+</div>

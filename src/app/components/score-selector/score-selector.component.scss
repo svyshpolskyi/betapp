@@ -1,0 +1,18 @@
+
+.scoreSelections {
+  position: absolute;
+  right: -40px;
+  bottom: -20px;
+  z-index: 10;
+}
+
+
+.scoreSelections input {
+  background-color: #157382;
+  border: 1px solid #125863;
+  padding: 5px;
+}
+
+.scoreSelections .btn:focus {
+  box-shadow: inset 0 0 18px #00ffdc;
+}

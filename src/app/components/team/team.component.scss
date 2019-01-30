@@ -1,0 +1,47 @@
+//:host-context(.betSection) {
+.user {
+  .team {
+    display: grid;
+    position: relative;
+    grid-template-columns: 3fr 1fr 1fr;
+    min-height: 50px;
+  }
+
+  .teamName {
+    font-size: 13px;
+    font-weight: bold;
+    justify-self: end;
+    align-self: center;
+    padding-right: 10px;
+  }
+
+  .teamLogo {
+    justify-self: stretch;
+    align-self: stretch;
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
+    display: grid;
+  }
+
+  .teamLogo img {
+    max-width: 40px;
+    max-height: 46px;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .scoreTeam {
+    font-weight: bold;
+    display: grid;
+    grid-template-rows: 1fr;
+  }
+
+  .scoreTeam span {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .scoreTeam:hover {
+    cursor: pointer;
+    background-color: #127d8e;
+  }
+}

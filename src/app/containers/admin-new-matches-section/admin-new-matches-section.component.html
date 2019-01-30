@@ -1,0 +1,7 @@
+<div class="main">
+  <app-admin-match-selector
+    (fixtureButtonPressed)="onFixtureButtonPressed($event)"
+    [fixtures]="fixtures$ | async"
+    [roundsQuantity]="roundsQuantity$ | async"
+  ></app-admin-match-selector>
+</div>

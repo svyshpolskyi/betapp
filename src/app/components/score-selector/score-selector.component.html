@@ -1,0 +1,11 @@
+<div class="scoreSelections" *ngIf="visible">
+  <div class="btn-group" data-toggle="buttons">
+    <input
+      type="button"
+      class="btn"
+      [value]="selector"
+      (click)="getData($event)"
+      *ngFor="let selector of selectorValues"
+    />
+  </div>
+</div>
