@@ -6,11 +6,12 @@
     </div>
     <div class="scoreTeam" (click)="setScore()" *ngIf="viewMode === 'user'">
       <span>{{ score }}</span>
-      <app-score-selector
-        [visible]="displaySelections"
-        class="scoreSelector"
-        (resultSelected)="onResultSelected($event)"
-      ></app-score-selector>
+      <div *ngIf="displaySelections">
+        <app-score-selector
+          class="scoreSelector"
+          (resultSelected)="onResultSelected($event)"
+        ></app-score-selector>
+      </div>
     </div>
   </div>
 </div>

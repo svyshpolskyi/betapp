@@ -1,10 +1,10 @@
-<div class="scoreSelections" *ngIf="visible">
+<div class="scoreSelections" appModal (clickOutside)="close()">
   <div class="btn-group" data-toggle="buttons">
     <input
       type="button"
       class="btn"
       [value]="selector"
-      (click)="getData($event)"
+      (click)="getScoreNumber($event)"
       *ngFor="let selector of selectorValues"
     />
   </div>

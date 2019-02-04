@@ -1,0 +1,9 @@
+<div class="dateButtons">
+  <input
+    type="button"
+    class="btn btn-success"
+    value="{{day}}"
+    *ngFor="let day of dates"
+    [routerLink]="[day]"
+  />
+</div>

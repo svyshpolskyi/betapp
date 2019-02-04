@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { BetSectionService } from "./bet-section.service";
 import { AngularFireList } from "@angular/fire/database";
+import { tap } from "rxjs/operators";
+import { pipe } from "rxjs";
 
 @Component({
   selector: "app-bet-section",
@@ -13,6 +15,6 @@ export class BetSectionComponent implements OnInit {
 
   ngOnInit() {
     this.matchDetails$ = this.betSectionService.getMatches();
-    // .subscribe(data => console.log(data));
+    // .pipe(tap(data => console.log(data)));
   }
 }

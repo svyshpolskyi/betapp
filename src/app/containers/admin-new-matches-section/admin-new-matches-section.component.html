@@ -1,7 +1,3 @@
 <div class="main">
-  <app-admin-match-selector
-    (fixtureButtonPressed)="onFixtureButtonPressed($event)"
-    [fixtures]="fixtures$ | async"
-    [roundsQuantity]="roundsQuantity$ | async"
-  ></app-admin-match-selector>
+  <app-date-buttons></app-date-buttons><router-outlet></router-outlet>
 </div>

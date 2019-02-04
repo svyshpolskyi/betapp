@@ -20,6 +20,11 @@ export class TeamComponent implements OnInit {
   }
 
   onResultSelected(score) {
-    this.score = score;
+    if (score) {
+      this.score = score;
+    } else {
+      this.score = "?";
+      this.displaySelections = !this.displaySelections;
+    }
   }
 }

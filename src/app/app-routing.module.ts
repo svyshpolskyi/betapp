@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { PersonalComponent } from "./components/personal/personal.component";
 import { HomeComponent } from "./layouts/home/home.component";
 import { AdminComponent } from "./layouts/admin/admin.component";
+import { AdminMatchSelectorComponent } from "./components/admin-match-selector/admin-match-selector.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: "admin",
-    component: AdminComponent
+    component: AdminComponent,
+    children: [{ path: ":date", component: AdminMatchSelectorComponent }]
   }
 ];
 

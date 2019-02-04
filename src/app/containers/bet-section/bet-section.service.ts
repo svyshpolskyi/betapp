@@ -18,9 +18,12 @@ export class BetSectionService {
         map((matchDetails: any) => {
           return {
             ...matchDetails,
-            matches:
-              matchDetails.tournament[matchDetails.tournament.length - 1]
-                .matches
+            matches: Object.values(matchDetails.tournament)[
+              Object.values(matchDetails.tournament).length - 1
+            ]["matches"],
+            currentRound: Object.values(matchDetails.tournament)[
+              Object.values(matchDetails.tournament).length - 1
+            ]["tournament_round"]
           };
         })
       );

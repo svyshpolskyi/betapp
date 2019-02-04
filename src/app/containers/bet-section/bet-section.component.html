@@ -1,5 +1,5 @@
 <div *ngIf="(matchDetails$ | async) as matchDetails">
-  <h3 class="roundHeader">Round {{ matchDetails.tournament.length }}</h3>
+  <h3 class="roundHeader">Round {{ matchDetails.currentRound }}</h3>
   <div class="row">
     <app-match
       *ngFor="let match of matchDetails.matches"

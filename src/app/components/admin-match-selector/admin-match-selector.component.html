@@ -1,18 +1,8 @@
-<div class="dateButtons">
-  <input
-    type="button"
-    class="btn btn-success"
-    value="{{day}}"
-    (click)="showFixtures($event)"
-    *ngFor="let day of dates"
-  />
-</div>
-<div class="matches container-fluid" *ngIf="fixtures">
+<div class="matches container-fluid" *ngIf="(fixtures$ | async) as fixtures">
   <ul class="list-group col-md-3">
-    <!-- <div *ngIf="allMatches?.length <= 0">No matches for this date</div> -->
     <li
       class="match list-group-item list-group-item-primary list-group-item-action"
-      *ngFor="let match of allMatches"
+      *ngFor="let match of fixtures"
     >
       <app-match
         [match]="match"
@@ -25,12 +15,10 @@
     type="button"
     class="btn btn-primary"
     (click)="addMatches(selectedMatches)"
-    [disabled]="!roundsQuantity"
   >
     Add matches
   </button>
   <button type="button" class="btn btn-warning" (click)="addLogos()">
-    <!-- [disabled]="allMatches?.length < 1" -->
     Add logos
   </button>
 </div>

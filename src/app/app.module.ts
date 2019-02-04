@@ -17,15 +17,17 @@ import { HomeComponent } from "./layouts/home/home.component";
 import { BetSectionComponent } from "./containers/bet-section/bet-section.component";
 import { AdminComponent } from "./layouts/admin/admin.component";
 import { AdminNewMatchesSectionComponent } from "./containers/admin-new-matches-section/admin-new-matches-section.component";
+import { DateButtonsComponent } from "./components/date-buttons/date-buttons.component";
 
 import { FetchService } from "./services/fetch.service";
 import { HelpersService } from "./services/helpers.service";
 import { BetSectionService } from "./containers/bet-section/bet-section.service";
+import { AdminMatchSelectorService } from "./components/admin-match-selector/admin-match-selector.service";
 import { firebaseConfig } from "../environments/firebase.config";
 import { AngularFireDatabase } from "angularfire2/database";
 import { FormatDatePipe } from "./pipes/format-date.pipe";
 import { FormatRoundPipe } from "./pipes/format-round.pipe";
-import { AdminNewMatchesSectionService } from "./containers/admin-new-matches-section/admin-new-matches-section.service";
+import { ModalDirective } from "./directives/modal.directive";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { AdminNewMatchesSectionService } from "./containers/admin-new-matches-se
     AdminComponent,
     FormatDatePipe,
     FormatRoundPipe,
-    AdminNewMatchesSectionComponent
+    AdminNewMatchesSectionComponent,
+    ModalDirective,
+    DateButtonsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,7 @@ import { AdminNewMatchesSectionService } from "./containers/admin-new-matches-se
     FetchService,
     HelpersService,
     BetSectionService,
-    AdminNewMatchesSectionService,
+    AdminMatchSelectorService,
     AngularFireDatabase
   ],
   bootstrap: [AppComponent]
