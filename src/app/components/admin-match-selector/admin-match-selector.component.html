@@ -1,12 +1,12 @@
 <div class="matches container-fluid" *ngIf="(fixtures$ | async) as fixtures">
-  <ul class="list-group col-md-3">
+  <ul class="list-group col-md-10">
     <li
       class="match list-group-item list-group-item-primary list-group-item-action"
       *ngFor="let match of fixtures"
     >
       <app-match
         [match]="match"
-        [viewMode]="'admin'"
+        [viewMode]="'admin-selection'"
         (matchSelected)="onMatchSelected($event)"
       ></app-match>
     </li>
@@ -18,7 +18,7 @@
   >
     Add matches
   </button>
-  <button type="button" class="btn btn-warning" (click)="addLogos()">
-    Add logos
-  </button>
+  <!-- <button type="button" class="btn btn-warning" (click)="addLogos()"> -->
+  <!-- Add logos -->
+  <!-- </button> -->
 </div>

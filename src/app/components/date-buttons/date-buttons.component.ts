@@ -10,7 +10,7 @@ export class DateButtonsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.dates = this.getDates(5);
+    this.dates = this.getDates(7);
   }
 
   // method for getting the list of future 5 days dates and displaying it on buttons

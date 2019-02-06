@@ -122,7 +122,7 @@
 
 }
 
-.admin {
+.adminSelection, .adminDisplay {
   .match {
     display: grid;
     grid-template-columns: 1fr 6fr;
@@ -131,6 +131,10 @@
   .match-body {
     display: grid;
     grid-template-columns: 4fr 1fr 4fr;
+  }
+
+  .match-info {
+    align-self: center;
   }
 
   .match-info .date {
@@ -158,6 +162,14 @@
 
   .matchSelected {
     background-color: #62c462;
+  }
+
+}
+
+.adminDisplay {
+
+  .matchSelected {
+    background-color: transparent;
   }
 
 }

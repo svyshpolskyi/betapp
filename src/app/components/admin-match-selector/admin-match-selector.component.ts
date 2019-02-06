@@ -4,6 +4,8 @@ import { FetchService } from "../../services/fetch.service";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { AdminMatchSelectorService } from "./admin-match-selector.service";
+import { select, Store } from "@ngrx/store";
+import * as MatchActions from "./store/admin-match-selector.actions";
 
 @Component({
   selector: "app-admin-match-selector",
@@ -14,9 +16,10 @@ export class AdminMatchSelectorComponent implements OnInit {
   fixtures$;
   roundsQuantity;
   supportedLeagueIDs;
-  allMatches = [];
+  allMatches;
   date;
   selectedMatches = [];
+  selectedMatches$;
   logoURLs = [];
   error;
   viewMode = "admin";
@@ -26,7 +29,8 @@ export class AdminMatchSelectorComponent implements OnInit {
     private af: AngularFireDatabase,
     private route: ActivatedRoute,
     private router: Router,
-    private adminMatchesSelectorService: AdminMatchSelectorService
+    private adminMatchesSelectorService: AdminMatchSelectorService,
+    private store: Store<{ matches }>
   ) {}
 
   ngOnInit() {
@@ -34,12 +38,11 @@ export class AdminMatchSelectorComponent implements OnInit {
     this.adminMatchesSelectorService
       .getRoundsQuantity()
       .subscribe(roundsQuantity => (this.roundsQuantity = roundsQuantity));
-    this.route.params.subscribe(
-      (params: Params) =>
-        (this.fixtures$ = this.adminMatchesSelectorService.getFixtures(
-          params["date"]
-        ))
-    );
+    this.route.params.subscribe((params: Params) => {
+      this.fixtures$ = this.adminMatchesSelectorService.getFixtures(
+        params["date"]
+      );
+    });
   }
 
   onMatchSelected(selectedMatch) {
@@ -48,6 +51,7 @@ export class AdminMatchSelectorComponent implements OnInit {
       : this.selectedMatches.filter(
           match => match.fixture_id !== selectedMatch.fixture_id
         );
+    this.store.dispatch(new MatchActions.AddMatches(this.selectedMatches));
   }
   addMatches(matches) {
     this.af.list("/data/tournament").push({

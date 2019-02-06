@@ -1,6 +1,7 @@
 <div
   [ngClass]="{
-    admin: viewMode === 'admin',
+    adminSelection: viewMode === 'admin-selection',
+    adminDisplay: viewMode === 'admin-display',
     user: viewMode === 'user'
   }"
 >
@@ -30,7 +31,7 @@
           [viewMode]="viewMode"
         ></app-team>
       </div>
-      <div class="separator" *ngIf="viewMode === 'admin'">-</div>
+      <div class="separator" *ngIf="viewMode !== 'user'">-</div>
       <div class="team2">
         <app-team
           [teamName]="match.awayTeam"
