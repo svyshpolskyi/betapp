@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 
 @Directive({
-  selector: "[appModal]"
+  selector: "[clickOutside]"
 })
 export class ModalDirective {
   constructor(private _elementRef: ElementRef) {}

@@ -16,12 +16,6 @@ export class ScoreSelectorComponent implements OnInit {
 
   getScoreNumber(el) {
     this.resultSelected.emit(el.target.value);
-    console.log("score");
-  }
-
-  close() {
-    this.clickedOutside.emit(null);
-    console.log("close");
   }
 
   //   if (this.visible) {

@@ -4,7 +4,12 @@
     <div class="teamLogo" *ngIf="teamLogo">
       <img src="{{teamLogo}}" alt="" />
     </div>
-    <div class="scoreTeam" (click)="setScore()" *ngIf="viewMode === 'user'">
+    <div
+      class="scoreTeam"
+      (click)="setScore()"
+      *ngIf="viewMode === 'user'"
+      (clickOutside)="close()"
+    >
       <span>{{ score }}</span>
       <div *ngIf="displaySelections">
         <app-score-selector

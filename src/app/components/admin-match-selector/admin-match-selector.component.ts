@@ -78,7 +78,6 @@ export class AdminMatchSelectorComponent implements OnInit {
         })
       )
       .subscribe(data => {
-        console.log(data);
         this.fixtures = data["matches"];
         if (!data["error"]) {
           this.store.dispatch(new MatchActions.LoadMatchesSuccess(data));

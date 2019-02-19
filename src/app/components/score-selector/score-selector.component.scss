@@ -13,6 +13,6 @@
   padding: 5px;
 }
 
-.scoreSelections .btn:focus {
+.scoreSelections .btn:focus, .scoreSelections .btn:hover {
   box-shadow: inset 0 0 18px #00ffdc;
 }

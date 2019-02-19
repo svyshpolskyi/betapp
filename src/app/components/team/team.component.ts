@@ -27,4 +27,8 @@ export class TeamComponent implements OnInit {
       this.displaySelections = !this.displaySelections;
     }
   }
+
+  close() {
+    this.displaySelections = false;
+  }
 }
