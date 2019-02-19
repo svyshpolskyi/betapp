@@ -1,4 +1,6 @@
-<div class="matches container-fluid" *ngIf="(fixtures$ | async) as fixtures">
+<div class="matches" *ngIf="!(isLoading$ | async) && !(isFailed$ | async)">
+  <div class="col-md-12">New Matches</div>
+
   <ul class="list-group col-md-10">
     <li
       class="match list-group-item list-group-item-primary list-group-item-action"
@@ -11,14 +13,19 @@
       ></app-match>
     </li>
   </ul>
-  <button
-    type="button"
-    class="btn btn-primary"
-    (click)="addMatches(selectedMatches)"
-  >
+  <button type="button" class="btn btn-primary" (click)="addMatches()">
     Add matches
   </button>
-  <!-- <button type="button" class="btn btn-warning" (click)="addLogos()"> -->
-  <!-- Add logos -->
-  <!-- </button> -->
+</div>
+
+<div *ngIf="(isFailed$ | async)">Something went wrong</div>
+
+<div *ngIf="(isLoading$ | async)" class="matches">
+  <div class="col-md-8">
+    <img
+      src="https://cdn.dribbble.com/users/225707/screenshots/2958729/attachments/648705/straight-loader.gif"
+      alt=""
+      class="img-fluid"
+    />
+  </div>
 </div>

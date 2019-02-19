@@ -9,7 +9,5 @@ export class AdminSelectedMatchesComponent implements OnInit {
   @Input() selectedMatches;
   constructor() {}
 
-  ngOnInit() {
-    console.log(this.selectedMatches);
-  }
+  ngOnInit() {}
 }

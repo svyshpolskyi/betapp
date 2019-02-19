@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { urls } from "../constants/endpoints";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Observable, throwError } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import { from } from "rxjs";
 
 @Injectable()
 export class FetchService {
@@ -48,5 +48,9 @@ export class FetchService {
 
   getFBData(url) {
     return this.af.list(url).valueChanges();
+  }
+
+  pushFBData(url, data) {
+    return from(this.af.list(url).push(data));
   }
 }

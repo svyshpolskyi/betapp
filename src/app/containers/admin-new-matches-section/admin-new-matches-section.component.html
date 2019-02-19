@@ -1,12 +1,18 @@
 <div class="main">
   <div class="col-md-8">
     <div class="row">
-      <app-date-buttons class="col-md-12"></app-date-buttons
-      ><router-outlet></router-outlet>
-      <app-admin-selected-matches
-        [selectedMatches]="selectedMatches"
-        *ngIf="(selectedMatches$ | async) as selectedMatches"
-      ></app-admin-selected-matches>
+      <app-date-buttons class="col-md-12"></app-date-buttons>
+    </div>
+    <div class="row">
+      <div class="col-md-6"><router-outlet></router-outlet></div>
+      <div class="col-md-6">
+        <app-admin-selected-matches
+          [selectedMatches]="selectedMatches"
+          *ngIf="(selectedMatches$ | async) as selectedMatches"
+        ></app-admin-selected-matches>
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template #success> Success </ng-template>
