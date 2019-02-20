@@ -2,7 +2,8 @@
   [ngClass]="{
     adminSelection: viewMode === 'admin-selection',
     adminDisplay: viewMode === 'admin-display',
-    user: viewMode === 'user'
+    user: viewMode === 'user',
+    resultSelected: isBetSubmitted
   }"
 >
   <div
@@ -29,6 +30,8 @@
           [teamName]="match.homeTeam"
           [teamLogo]="logos ? logos[match.homeTeam_id] : false"
           [viewMode]="viewMode"
+          [fixture_id]="match.fixture_id"
+          [playingSide]="'home'"
         ></app-team>
       </div>
       <div class="separator" *ngIf="viewMode !== 'user'">-</div>
@@ -37,8 +40,12 @@
           [teamName]="match.awayTeam"
           [teamLogo]="logos ? logos[match.awayTeam_id] : false"
           [viewMode]="viewMode"
+          [fixture_id]="match.fixture_id"
+          [playingSide]="'away'"
         ></app-team>
       </div>
     </div>
   </div>
 </div>
+
+<div>{{ isBetSubmitted$ | async }}</div>

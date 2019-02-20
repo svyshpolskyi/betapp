@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import * as BetMatchActions from "../../containers/bet-section/store/bet-section.actions";
 
 @Component({
   selector: "app-team",
@@ -10,8 +12,10 @@ export class TeamComponent implements OnInit {
   @Input() teamName;
   @Input() teamLogo;
   @Input() viewMode;
+  @Input() fixture_id;
+  @Input() playingSide;
   displaySelections = false;
-  constructor() {}
+  constructor(private store: Store<{}>) {}
 
   ngOnInit() {}
 
@@ -26,6 +30,13 @@ export class TeamComponent implements OnInit {
       this.score = "?";
       this.displaySelections = !this.displaySelections;
     }
+    this.store.dispatch(
+      new BetMatchActions.SetScore({
+        playingSide: this.playingSide,
+        fixture_id: this.fixture_id,
+        score
+      })
+    );
   }
 
   close() {

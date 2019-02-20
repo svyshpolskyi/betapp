@@ -1,4 +1,14 @@
 .user {
+  padding: 3px;
+  margin: 10px 0;
+}
+
+.resultSelected {
+  border-radius: 6px;
+  background-color: #003d4c;
+}
+
+.user {
 
 .card-header {
   display: grid;
@@ -65,7 +75,6 @@
   display: grid;
   grid-template-columns: 1fr 5fr;
   background-color: #17a2b8;
-  margin: 10px;
   border-radius: 6px;
 }
 

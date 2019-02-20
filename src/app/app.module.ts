@@ -36,6 +36,7 @@ import { ModalDirective } from "./directives/modal.directive";
 import { matchesReducer } from "./components/admin-match-selector/store/admin-match-selector.reducers";
 import { environment } from "../environments/environment";
 import { AdminSelectedMatchesComponent } from "./components/admin-selected-matches/admin-selected-matches.component";
+import { betMatchesReducer } from "./containers/bet-section/store/bet-section.reducers";
 
 @NgModule({
   declarations: [
@@ -63,7 +64,10 @@ import { AdminSelectedMatchesComponent } from "./components/admin-selected-match
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    StoreModule.forRoot({ matches: matchesReducer }),
+    StoreModule.forRoot({
+      matches: matchesReducer,
+      betMatches: betMatchesReducer
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production

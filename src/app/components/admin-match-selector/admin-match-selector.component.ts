@@ -13,7 +13,8 @@ import {
   first,
   map,
   switchMap,
-  take
+  take,
+  tap
 } from "rxjs/operators";
 import {
   getLoadedMatches,
@@ -100,6 +101,7 @@ export class AdminMatchSelectorComponent implements OnInit {
           matches: data[0].matches,
           tournament_round: data[1]["tournament_round"]
         })),
+        tap(console.log),
         switchMap(data =>
           this.adminMatchesSelectorService.addSelectedMatches(data)
         )
