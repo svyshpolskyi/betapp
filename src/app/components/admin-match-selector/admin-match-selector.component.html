@@ -1,21 +1,39 @@
-<div class="matches" *ngIf="!(isLoading$ | async) && !(isFailed$ | async)">
-  <div class="col-md-12">New Matches</div>
-
-  <ul class="list-group col-md-10">
-    <li
-      class="match list-group-item list-group-item-primary list-group-item-action"
-      *ngFor="let match of fixtures"
-    >
-      <app-match
-        [match]="match"
-        [viewMode]="'admin-selection'"
-        (matchSelected)="onMatchSelected($event)"
-      ></app-match>
-    </li>
-  </ul>
-  <button type="button" class="btn btn-primary" (click)="addMatches()">
-    Add matches
-  </button>
+<div
+  class="matches"
+  *ngIf="
+    !(isLoading$ | async) &&
+    !(isFailed$ | async) &&
+    !(isSubmittedMatchesSuccess$ | async)
+  "
+>
+  <ng-container *ngIf="(fixtures$ | async) as fixtures">
+    <ul class="list-group col-md-10">
+      <li
+        class="match list-group-item list-group-item-primary list-group-item-action"
+        *ngFor="let match of fixtures"
+      >
+        <app-match
+          [match]="match"
+          [viewMode]="'admin-selection'"
+          (matchSelected)="onMatchSelected($event)"
+        ></app-match>
+      </li>
+      <li *ngIf="!fixtures.length" class="list-group-item">
+        No matches for this date
+      </li>
+    </ul>
+    <ng-container>
+      <button
+        *ngIf="fixtures.length"
+        type="button"
+        class="btn btn-primary"
+        (click)="addMatches()"
+        [disabled]="!(selectedMatches$ | async)?.matches.length"
+      >
+        Add matches
+      </button>
+    </ng-container>
+  </ng-container>
 </div>
 
 <div *ngIf="(isFailed$ | async)">Something went wrong</div>

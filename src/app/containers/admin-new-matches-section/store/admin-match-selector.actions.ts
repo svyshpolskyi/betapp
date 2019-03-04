@@ -1,11 +1,10 @@
 import { Action } from "@ngrx/store";
 
 export const ADD_MATCHES = "ADD_MATCHES";
-export const ADD_MATCHES_SUCCESS = "ADD_MATCHES_SUCCESS";
-export const ADD_MATCHES_FAILURE = "ADD_MATCHES_FAILURE";
 export const LOAD_MATCHES = "LOAD_MATCHES";
 export const LOAD_MATCHES_SUCCESS = "LOAD_MATCHES_SUCCESS";
 export const LOAD_MATCHES_FAILURE = "LOAD_MATCHES_FAILURE";
+export const RESET_SELECTIONS = "RESET_SELECTIONS";
 
 export class AddMatches implements Action {
   readonly type = ADD_MATCHES;
@@ -25,18 +24,13 @@ export class LoadMatchesFailure implements Action {
   readonly type = LOAD_MATCHES_FAILURE;
 }
 
-// export class AddMatchesSuccess implements Action {
-//   readonly type = ADD_MATCHES_SUCCESS;
-//   constructor(public payload) {}
-// }
-//
-// export class AddMatchesFailure implements Action {
-//   readonly type = ADD_MATCHES_FAILURE;
-//   constructor(public payload) {}
-// }
+export class ResetSelections implements Action {
+  readonly type = RESET_SELECTIONS;
+}
 
 export type MatchActions =
   | AddMatches
   | LoadMatches
   | LoadMatchesSuccess
-  | LoadMatchesFailure;
+  | LoadMatchesFailure
+  | ResetSelections;

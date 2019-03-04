@@ -19,7 +19,11 @@ export class DateButtonsComponent implements OnInit {
     return [...new Array(numberOfDays)].fill("").map((el, index, arr) => {
       const date = new Date(currentDate);
       currentDate += 86400000;
-      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+      return `${date.getFullYear()}-${
+        date.getMonth() + 1 < 10
+          ? `0${date.getMonth() + 1}`
+          : date.getMonth() + 1
+      }-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`;
     });
   }
 }

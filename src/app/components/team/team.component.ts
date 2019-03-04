@@ -8,12 +8,19 @@ import * as BetMatchActions from "../../containers/bet-section/store/bet-section
   styleUrls: ["./team.component.scss"]
 })
 export class TeamComponent implements OnInit {
-  score = "?";
+  private _score;
+  get score() {
+    return this._score;
+  }
   @Input() teamName;
   @Input() teamLogo;
   @Input() viewMode;
   @Input() fixture_id;
   @Input() playingSide;
+  @Input()
+  set score(val) {
+    this._score = val || "?";
+  }
   displaySelections = false;
   constructor(private store: Store<{}>) {}
 

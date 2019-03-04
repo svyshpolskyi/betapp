@@ -1,14 +1,13 @@
 import * as MatchActions from "./admin-match-selector.actions";
 
 const initialState = {
-  selectedMatches: [],
   loadedMatches: [],
   pending: false,
   success: false,
   error: false
 };
 
-export function matchesReducer(
+export function selectMatchesReducer(
   state = initialState,
   action: MatchActions.MatchActions
 ) {
@@ -16,11 +15,17 @@ export function matchesReducer(
     case MatchActions.ADD_MATCHES:
       return {
         ...state,
-        selectedMatches: action.payload.selected
-          ? [...state.selectedMatches, action.payload]
-          : state.selectedMatches.filter(
-              match => match.fixture_id !== action.payload.fixture_id
-            )
+        loadedMatches: state.loadedMatches.map(matchDay => {
+          if (matchDay.date === action.payload.event_date.split("T")[0]) {
+            matchDay.matches.map(match => {
+              if (match.fixture_id === action.payload.fixture_id) {
+                match.selected = !match.selected;
+              }
+              return match;
+            });
+          }
+          return matchDay;
+        })
       };
     case MatchActions.LOAD_MATCHES:
       return {
@@ -45,6 +50,19 @@ export function matchesReducer(
         pending: false,
         error: true,
         success: false
+      };
+    case MatchActions.RESET_SELECTIONS:
+      return {
+        ...state,
+        loadedMatches: state.loadedMatches.map(matchDay => {
+          return {
+            date: matchDay.date,
+            matches: matchDay.matches.map(match => {
+              match.selected = false;
+              return match;
+            })
+          };
+        })
       };
     default:
       return state;

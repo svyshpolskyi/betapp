@@ -7,12 +7,20 @@
       <div class="col-md-6"><router-outlet></router-outlet></div>
       <div class="col-md-6">
         <app-admin-selected-matches
-          [selectedMatches]="selectedMatches"
-          *ngIf="(selectedMatches$ | async) as selectedMatches"
+          [selectedMatches$]="selectedMatches$"
         ></app-admin-selected-matches>
+      </div>
+    </div>
+    <div *ngIf="(isSubmittedMatchesSuccess$ | async)">
+      <div class="text-center">
+        Matches for new round were added successfully. Check latest bets by the
+        link below:
+      </div>
+      <div class="text-center">
+        <button type="button" class="btn btn-secondary" routerLink="/">
+          Go to bets
+        </button>
       </div>
     </div>
   </div>
 </div>
-
-<ng-template #success> Success </ng-template>

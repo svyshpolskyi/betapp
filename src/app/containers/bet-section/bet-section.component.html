@@ -10,4 +10,22 @@
       class="col-md-6"
     ></app-match>
   </div>
+  <div class="row">
+    <div class="col-md-6">
+      <button
+        type="button"
+        class="btn btn-danger actionButton"
+        (click)="submitBet(userId, currentRound, { test: 'test' })"
+      >
+        Submit bet
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary actionButton"
+        (click)="resetSelections()"
+      >
+        Reset selections
+      </button>
+    </div>
+  </div>
 </div>

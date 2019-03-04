@@ -9,7 +9,7 @@
   <div
     class="match"
     (click)="selectMatch(match)"
-    [ngClass]="{ matchSelected: selected }"
+    [ngClass]="{ matchSelected: match.selected }"
   >
     <div class="match-info">
       <div class="leagueLogo" *ngIf="viewMode === 'user'">
@@ -32,6 +32,7 @@
           [viewMode]="viewMode"
           [fixture_id]="match.fixture_id"
           [playingSide]="'home'"
+          [score]="match.homeTeamBetScore"
         ></app-team>
       </div>
       <div class="separator" *ngIf="viewMode !== 'user'">-</div>
@@ -42,6 +43,7 @@
           [viewMode]="viewMode"
           [fixture_id]="match.fixture_id"
           [playingSide]="'away'"
+          [score]="match.awayTeamBetScore"
         ></app-team>
       </div>
     </div>

@@ -53,4 +53,8 @@ export class FetchService {
   pushFBData(url, data) {
     return from(this.af.list(url).push(data));
   }
+
+  updateFBData(url, round, data) {
+    return from(this.af.list(url).update(round, data));
+  }
 }

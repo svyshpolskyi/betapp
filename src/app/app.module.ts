@@ -1,5 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
+import { Core } from "./core/core.module";
 import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from "./app-routing.module";
 import { AngularFireModule } from "@angular/fire";
@@ -33,10 +34,12 @@ import { FormatRoundPipe } from "./pipes/format-round.pipe";
 
 import { ModalDirective } from "./directives/modal.directive";
 
-import { matchesReducer } from "./components/admin-match-selector/store/admin-match-selector.reducers";
+import { selectMatchesReducer } from "./containers/admin-new-matches-section/store/admin-match-selector.reducers";
 import { environment } from "../environments/environment";
 import { AdminSelectedMatchesComponent } from "./components/admin-selected-matches/admin-selected-matches.component";
 import { betMatchesReducer } from "./containers/bet-section/store/bet-section.reducers";
+import { appReducer } from "./store/app.reducers";
+import { AuthGuard } from "./core/auth.guard";
 
 @NgModule({
   declarations: [
@@ -65,20 +68,23 @@ import { betMatchesReducer } from "./containers/bet-section/store/bet-section.re
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig),
     StoreModule.forRoot({
-      matches: matchesReducer,
-      betMatches: betMatchesReducer
+      selectMatches: selectMatchesReducer,
+      betMatches: betMatchesReducer,
+      app: appReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
-    })
+    }),
+    Core
   ],
   providers: [
     FetchService,
     HelpersService,
     BetSectionService,
     AdminMatchSelectorService,
-    AngularFireDatabase
+    AngularFireDatabase,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

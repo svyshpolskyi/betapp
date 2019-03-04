@@ -5,8 +5,10 @@ import { AngularFireDatabase } from "@angular/fire/database";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AdminMatchSelectorService } from "./admin-match-selector.service";
 import { select, Store } from "@ngrx/store";
-import * as MatchActions from "./store/admin-match-selector.actions";
+import * as MatchActions from "../../containers/admin-new-matches-section/store/admin-match-selector.actions";
 import { combineLatest, Observable, of } from "rxjs";
+import * as AppActions from "../../store/app.actions";
+import * as BetMatchActions from "../../containers/bet-section/store/bet-section.actions";
 import {
   catchError,
   concatMap,
@@ -19,8 +21,11 @@ import {
 import {
   getLoadedMatches,
   getLoadingStatus,
-  getFailedStatus
-} from "./store/admin-match-selector.selectors";
+  getFailedStatus,
+  getSelectedMatches,
+  getSuccessStatus
+} from "../../containers/admin-new-matches-section/store/admin-match-selector.selectors";
+import { getSubmittedMatchesSuccessStatus } from "../../store/app.selectors";
 
 @Component({
   selector: "app-admin-match-selector",
@@ -28,15 +33,16 @@ import {
   styleUrls: ["./admin-match-selector.component.scss"]
 })
 export class AdminMatchSelectorComponent implements OnInit {
-  fixtures;
+  fixtures$;
   roundsQuantity$: Observable<{}>;
   supportedLeagueIDs;
   date;
-  selectedMatches = [];
   selectedMatches$: Observable<any>;
   error;
   isLoading$;
   isFailed$;
+  isSuccess$;
+  isSubmittedMatchesSuccess$;
 
   constructor(
     private fetchService: FetchService,
@@ -52,6 +58,7 @@ export class AdminMatchSelectorComponent implements OnInit {
     this.roundsQuantity$ = this.adminMatchesSelectorService.getRoundsQuantity();
     this.isLoading$ = this.store.pipe(select(getLoadingStatus));
     this.isFailed$ = this.store.pipe(select(getFailedStatus));
+    this.isSuccess$ = this.store.pipe(select(getSuccessStatus));
     this.route.params
       .pipe(
         map(params => {
@@ -79,21 +86,23 @@ export class AdminMatchSelectorComponent implements OnInit {
         })
       )
       .subscribe(data => {
-        this.fixtures = data["matches"];
         if (!data["error"]) {
           this.store.dispatch(new MatchActions.LoadMatchesSuccess(data));
+          this.fixtures$ = this.store
+            .select(getLoadedMatches, { date: data.date })
+            .pipe(map(obj => obj.matches));
         }
       });
-    this.selectedMatches$ = this.store.pipe(
-      select("matches"),
-      map(data => ({ matches: data.selectedMatches }))
-    );
+    this.selectedMatches$ = this.store
+      .select(getSelectedMatches)
+      .pipe(map(data => ({ matches: data })));
   }
 
   onMatchSelected(selectedMatch) {
     this.store.dispatch(new MatchActions.AddMatches(selectedMatch));
   }
-  addMatches(matches) {
+  addMatches() {
+    this.store.dispatch(new AppActions.SubmitMatchesStart());
     combineLatest(this.selectedMatches$, this.roundsQuantity$)
       .pipe(
         take(1),
@@ -101,12 +110,19 @@ export class AdminMatchSelectorComponent implements OnInit {
           matches: data[0].matches,
           tournament_round: data[1]["tournament_round"]
         })),
-        tap(console.log),
         switchMap(data =>
           this.adminMatchesSelectorService.addSelectedMatches(data)
         )
       )
-      .subscribe();
+      .subscribe(response => {
+        this.store.dispatch(new AppActions.SubmitMatchesSuccess());
+        this.store.dispatch(new MatchActions.ResetSelections());
+        this.store.dispatch(new BetMatchActions.ResetBetMatches());
+        this.router.navigate(["/admin"]);
+        // .then(nav =>
+        //   this.store.dispatch(new AppActions.SubmitMatchesReset())
+        // );
+      });
   }
 
   // addLogos() {

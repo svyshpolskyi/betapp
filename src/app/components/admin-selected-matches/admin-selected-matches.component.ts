@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from "@angular/core";
   styleUrls: ["./admin-selected-matches.component.scss"]
 })
 export class AdminSelectedMatchesComponent implements OnInit {
-  @Input() selectedMatches;
+  @Input() selectedMatches$;
   constructor() {}
 
   ngOnInit() {}

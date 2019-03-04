@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FetchService } from "../../services/fetch.service";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { AngularFireDatabase } from "@angular/fire/database";
 
 @Injectable()
@@ -16,16 +16,33 @@ export class BetSectionService {
       .valueChanges()
       .pipe(
         map((matchDetails: any) => {
+          const matches = Object.values(matchDetails.tournament)[
+            Object.values(matchDetails.tournament).length - 1
+          ]["matches"];
+          const currentRound = Object.values(matchDetails.tournament)[
+            Object.values(matchDetails.tournament).length - 1
+          ]["tournament_round"];
           return {
-            ...matchDetails,
-            matches: Object.values(matchDetails.tournament)[
-              Object.values(matchDetails.tournament).length - 1
-            ]["matches"],
-            currentRound: Object.values(matchDetails.tournament)[
-              Object.values(matchDetails.tournament).length - 1
-            ]["tournament_round"]
+            matches: matches.map(match => ({
+              ...match,
+              awayTeamBetScore: undefined,
+              homeTeamBetScore: undefined
+            })),
+            currentRound,
+            leagues: matchDetails.leagues,
+            teamLogos: matches.reduce((acc, cur) => {
+              return {
+                ...acc,
+                [cur.homeTeam_id]: matchDetails.teamLogos[cur.homeTeam_id],
+                [cur.awayTeam_id]: matchDetails.teamLogos[cur.awayTeam_id]
+              };
+            }, {})
           };
         })
       );
+  }
+
+  submitBetMethod(key, round, data) {
+    return this.fetchService.updateFBData(`/bets/${key}`, `${round}`, data);
   }
 }

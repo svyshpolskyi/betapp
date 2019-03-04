@@ -17,20 +17,24 @@ export class MatchComponent implements OnInit {
   @Input() leagueLogos;
   @Input() viewMode;
   @Output() matchSelected = new EventEmitter<any>();
-  selected = false;
+  // selected = false;
 
   constructor(private store: Store<{}>) {}
 
   ngOnInit() {
-    this.store
-      .select(getSelectedBetStatus, {
-        fixture_id: this.match.fixture_id
-      })
-      .subscribe(data => (this.isBetSubmitted = data));
+    if (this.viewMode === "user") {
+      this.store
+        .select(getSelectedBetStatus, {
+          fixture_id: this.match.fixture_id
+        })
+        .subscribe(data => {
+          return (this.isBetSubmitted = data);
+        });
+    }
   }
 
   selectMatch(match) {
-    this.selected = !this.selected;
-    this.matchSelected.emit({ ...match, selected: this.selected });
+    // this.selected = !this.selected;
+    this.matchSelected.emit({ ...match });
   }
 }

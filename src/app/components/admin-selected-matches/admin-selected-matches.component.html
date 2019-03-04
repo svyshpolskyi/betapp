@@ -1,11 +1,11 @@
-<h5 *ngIf="selectedMatches.selectedMatches.length" class="text-center">
-  Selected matches
-</h5>
-<ul class="list-group col-md-12">
-  <li
-    class="match list-group-item list-group-item-info"
-    *ngFor="let match of selectedMatches.selectedMatches"
-  >
-    <app-match [match]="match" [viewMode]="'admin-display'"></app-match>
-  </li>
-</ul>
+<div *ngIf="(selectedMatches$ | async) as selectedMatches">
+  <h5 class="text-center" *ngIf="selectedMatches.length">Selected matches</h5>
+  <ul class="list-group col-md-12">
+    <li
+      class="match list-group-item list-group-item-info"
+      *ngFor="let match of selectedMatches"
+    >
+      <app-match [match]="match" [viewMode]="'admin-display'"></app-match>
+    </li>
+  </ul>
+</div>
