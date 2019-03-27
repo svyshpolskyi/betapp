@@ -1,5 +1,5 @@
 //:host-context(.betSection) {
-.user {
+.loggedUser, .notLoggedUser {
   .team {
     display: grid;
     position: relative;
@@ -46,3 +46,11 @@
     background-color: #127d8e;
   }
 }
+
+.notLoggedUser, .latestBet {
+  .scoreTeam:hover {
+    cursor: inherit;
+    background-color: inherit;
+  }
+}
+

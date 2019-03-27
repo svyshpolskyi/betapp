@@ -1,0 +1,15 @@
+<ng-container *ngIf="(isLoggedIn$ | async)">
+  <div class="col-md-8 mx-auto" *ngIf="(betResults$ | async) as betResults">
+    <h5 *ngIf="betResults.currentRound">
+      Your results on round {{ betResults.currentRound }}
+    </h5>
+    <ng-container *ngFor="let match of betResults.matches">
+      <app-bet-results [match]="match"></app-bet-results>
+    </ng-container>
+    <hr />
+    <div>
+      Your total result for {{ betResults.currentRound | formatNumber }} round:
+      <span class="totalPoints">{{ totalPoints }} points</span>
+    </div>
+  </div>
+</ng-container>

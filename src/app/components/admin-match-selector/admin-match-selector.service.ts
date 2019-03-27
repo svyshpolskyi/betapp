@@ -13,14 +13,12 @@ export class AdminMatchSelectorService {
   }
 
   getFixtures(date) {
-    return this.fetchService
-      .makeRequest(`${urls.fixtures}/${date}`)
-      .pipe(
-        map(fixtures => ({
-          date: date,
-          matches: this.filterFixtures(fixtures["api"].fixtures)
-        }))
-      );
+    return this.fetchService.makeRequest(`${urls.fixtures}/${date}`).pipe(
+      map(fixtures => ({
+        date: date,
+        matches: this.filterFixtures(fixtures["api"].fixtures)
+      }))
+    );
   }
 
   filterFixtures(fixtures) {

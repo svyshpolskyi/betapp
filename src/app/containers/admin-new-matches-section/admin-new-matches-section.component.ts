@@ -4,23 +4,16 @@ import { select, Store } from "@ngrx/store";
 import { getSelectedMatches } from "./store/admin-match-selector.selectors";
 import { getSubmittedMatchesSuccessStatus } from "../../store/app.selectors";
 import * as AppActions from "../../store/app.actions";
-import { filter, pairwise, switchMap, tap } from "rxjs/operators";
+import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-admin-new-matches-section",
   templateUrl: "./admin-new-matches-section.component.html"
 })
 export class AdminNewMatchesSectionComponent implements OnInit, OnDestroy {
-  routeSubscription$;
   selectedMatches$;
   isSubmittedMatchesSuccess$;
-  constructor(private store: Store<{ matches }>, private router: Router) {
-    this.routeSubscription$ = this.router.events.pipe(
-      filter(e => e instanceof RoutesRecognized),
-      pairwise(),
-      tap(console.log)
-    );
-  }
+  constructor(private store: Store<{ matches }>, private router: Router) {}
   ngOnInit() {
     this.selectedMatches$ = this.store.select(getSelectedMatches).pipe(
       tap(matches => {
@@ -36,6 +29,5 @@ export class AdminNewMatchesSectionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.store.dispatch(new AppActions.SubmitMatchesReset());
-    // this.routeSubscription$.unsubscribe();
   }
 }

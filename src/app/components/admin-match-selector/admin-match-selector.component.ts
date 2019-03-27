@@ -25,7 +25,6 @@ import {
   getSelectedMatches,
   getSuccessStatus
 } from "../../containers/admin-new-matches-section/store/admin-match-selector.selectors";
-import { getSubmittedMatchesSuccessStatus } from "../../store/app.selectors";
 
 @Component({
   selector: "app-admin-match-selector",
@@ -108,7 +107,7 @@ export class AdminMatchSelectorComponent implements OnInit {
         take(1),
         map(data => ({
           matches: data[0].matches,
-          tournament_round: data[1]["tournament_round"]
+          tournament_round: +data[1]["tournament_round"] + 1
         })),
         switchMap(data =>
           this.adminMatchesSelectorService.addSelectedMatches(data)

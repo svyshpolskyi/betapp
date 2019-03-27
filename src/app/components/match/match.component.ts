@@ -16,13 +16,15 @@ export class MatchComponent implements OnInit {
   @Input() leagues;
   @Input() leagueLogos;
   @Input() viewMode;
+  @Input() isLatestBet;
+  @Input() mode;
   @Output() matchSelected = new EventEmitter<any>();
   // selected = false;
 
   constructor(private store: Store<{}>) {}
 
   ngOnInit() {
-    if (this.viewMode === "user") {
+    if (this.viewMode === "loggedUser" || this.viewMode === "notLoggedUser") {
       this.store
         .select(getSelectedBetStatus, {
           fixture_id: this.match.fixture_id

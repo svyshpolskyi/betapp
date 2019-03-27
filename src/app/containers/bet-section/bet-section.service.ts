@@ -22,13 +22,18 @@ export class BetSectionService {
           const currentRound = Object.values(matchDetails.tournament)[
             Object.values(matchDetails.tournament).length - 1
           ]["tournament_round"];
+          const currentRoundId = Object.keys(matchDetails.tournament)[
+            Object.keys(matchDetails.tournament).length - 1
+          ];
           return {
-            matches: matches.map(match => ({
+            matches: matches.map((match, key) => ({
               ...match,
               awayTeamBetScore: undefined,
-              homeTeamBetScore: undefined
+              homeTeamBetScore: undefined,
+              matchKey: key
             })),
             currentRound,
+            currentRoundId,
             leagues: matchDetails.leagues,
             teamLogos: matches.reduce((acc, cur) => {
               return {
@@ -44,5 +49,9 @@ export class BetSectionService {
 
   submitBetMethod(key, round, data) {
     return this.fetchService.updateFBData(`/bets/${key}`, `${round}`, data);
+  }
+
+  getSubmittedBet(userId, round) {
+    return this.af.object(`/bets/${userId}/${round}`).valueChanges();
   }
 }

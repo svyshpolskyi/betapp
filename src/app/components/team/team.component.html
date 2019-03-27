@@ -1,22 +1,30 @@
-<div [ngClass]="{ admin: viewMode === 'admin', user: viewMode === 'user' }">
+<div
+  [ngClass]="{
+    admin: viewMode === 'admin',
+    notLoggedUser: viewMode === 'notLoggedUser',
+    loggedUser: viewMode === 'loggedUser',
+    latestBet: isLatestBet
+  }"
+>
   <div class="team">
     <div class="teamName">{{ teamName }}</div>
-    <div class="teamLogo" *ngIf="teamLogo">
-      <img src="{{teamLogo}}" alt="" />
-    </div>
+    <div class="teamLogo" *ngIf="teamLogo"><img [src]="teamLogo" alt="" /></div>
     <div
+      *ngIf="viewMode === 'loggedUser' && !isLatestBet"
       class="scoreTeam"
       (click)="setScore()"
-      *ngIf="viewMode === 'user'"
       (clickOutside)="close()"
     >
       <span>{{ score }}</span>
-      <div *ngIf="displaySelections">
+      <div *ngIf="displaySelections" class="scoreSelector">
         <app-score-selector
           class="scoreSelector"
           (resultSelected)="onResultSelected($event)"
         ></app-score-selector>
       </div>
+    </div>
+    <div *ngIf="isLatestBet || viewMode === 'notLoggedUser'" class="scoreTeam">
+      <span>{{ score }}</span>
     </div>
   </div>
 </div>

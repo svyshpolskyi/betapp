@@ -1,0 +1,24 @@
+<div *ngIf="(matchesToSetScore$ | async) as matchesToSetScore">
+  <div class="setScores row">
+    <h5 class="text-center">Set latest scores</h5>
+  </div>
+  <div
+    class="row"
+    *ngFor="let match of matchesToSetScore.matches"
+    class="col-md-6"
+  >
+    <app-match
+      [match]="match"
+      [logos]="matchesToSetScore.teamLogos"
+      [leagues]="matchesToSetScore.leagues"
+      [viewMode]="'loggedUser'"
+      [isLatestBet]="false"
+      [mode]="'setScore'"
+    ></app-match>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary" (click)="submitResults()">
+      Add results
+    </button>
+  </div>
+</div>

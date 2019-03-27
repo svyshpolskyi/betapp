@@ -30,8 +30,11 @@
           >Home</a
         >
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/personal" routerLinkActive="active"
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a
+          class="nav-link personalPage"
+          routerLink="/personal"
+          routerLinkActive="active"
           >Personal room</a
         >
       </li>
@@ -63,10 +66,10 @@
 <ng-template #authenticated>
   <ul class="navbar-nav" *ngIf="(auth.user | async) as user">
     <li class="nav-item">
-      <span class="nav-link">Hi, {{ user.displayName }}</span>
+      <span class="nav-link" id="username">Hi, {{ user.displayName }}</span>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="auth.signOut()">Logout</a>
+      <a class="nav-link" href="#" (click)="signOut()">Logout</a>
     </li>
   </ul>
 </ng-template>

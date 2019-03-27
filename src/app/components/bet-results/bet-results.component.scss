@@ -1,0 +1,75 @@
+.betResult {
+  padding: 0;
+  border: 1px solid #15772b;
+  border-radius: 10px;
+  margin-bottom: 20px;
+
+  .betMatch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-weight: bold;
+
+    .team1 {
+      display: grid;
+      grid-template-columns: 4fr 1fr;
+      border-right: 1px solid #66c77c;
+
+      .teamName {
+        justify-self: end;
+        border-right: 1px solid #66c77c;
+        padding-right: 10px;
+      }
+    }
+
+    .team2 {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+
+      .teamName {
+        justify-self: start;
+        border-left: 1px solid #66c77c;
+        padding-left: 10px;
+      }
+    }
+
+    .score {
+      justify-self: center;
+    }
+  }
+
+  .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #66c77c;
+
+    .predictedResult {
+      justify-self: end;
+      padding-right: 5px;
+    }
+
+    .earnedPoints {
+      justify-self: start;
+      padding-left: 5px;
+    }
+  }
+}
+
+.maxRes {
+  background-color: #28a745;
+}
+
+.midRes {
+  background-color: #00ff68;
+}
+
+.minRes {
+  background-color: #fff700;
+}
+
+.zeroRes {
+  background-color: #dee2e6;
+}
+
+.noRes {
+  background-color: #007bff57;
+}

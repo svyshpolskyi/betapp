@@ -1,5 +1,5 @@
 import * as BetMatchActions from "./bet-section.actions";
-import { RESET_SELECTIONS } from "./bet-section.actions";
+import * as SetScoreActions from "../../admin-set-score-section/store/admin-set-score-section.actions";
 
 const initialState = {
   betMatches: {}
@@ -42,11 +42,35 @@ export function betMatchesReducer(
         ...state,
         betMatches: {
           ...state.betMatches,
-          matches: state.betMatches["matches"].map(match => ({
-            ...match,
-            homeTeamBetScore: null,
-            awayTeamBetScore: null
-          }))
+          matches: state.betMatches["matches"]
+            ? state.betMatches["matches"].map(match => ({
+                ...match,
+                homeTeamBetScore: undefined,
+                awayTeamBetScore: undefined
+              }))
+            : []
+        }
+      };
+    case BetMatchActions.LOAD_LATEST_BET:
+      return {
+        ...state,
+        latestBet: action.payload
+      };
+    case BetMatchActions.SET_RESULT:
+      return {
+        ...state,
+        betMatches: {
+          ...state.betMatches,
+          matches: state.betMatches["matches"].map(match => {
+            if (match.fixture_id === action.payload.fixture_id) {
+              if (action.payload.playingSide === "home") {
+                match.goalsHomeTeam = action.payload.score;
+              } else {
+                match.goalsAwayTeam = action.payload.score;
+              }
+            }
+            return match;
+          })
         }
       };
     default:

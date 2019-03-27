@@ -4,17 +4,27 @@ import { urls } from "../constants/endpoints";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Observable, throwError } from "rxjs";
 import { from } from "rxjs";
+import { select, Store } from "@ngrx/store";
+import { getUserId } from "../store/app.selectors";
+import { AngularFireFunctions } from "@angular/fire/functions";
 
 @Injectable()
 export class FetchService {
   fixturesURL: string;
   teamsURL: string;
+  tableUrl: string;
   footerLeaguesURL: string;
   headers: HttpHeaders;
 
-  constructor(private http: HttpClient, private af: AngularFireDatabase) {
+  constructor(
+    private http: HttpClient,
+    private af: AngularFireDatabase,
+    private store: Store<{}>,
+    private fns: AngularFireFunctions
+  ) {
     this.fixturesURL = urls.fixtures;
     this.teamsURL = urls.teams;
+    this.tableUrl = urls.table;
     this.footerLeaguesURL = urls.leagues;
     this.headers = new HttpHeaders({
       Accept: "application/json",
@@ -50,11 +60,23 @@ export class FetchService {
     return this.af.list(url).valueChanges();
   }
 
+  getFBDataAsObj(url) {
+    return this.af.object(url).valueChanges();
+  }
+
   pushFBData(url, data) {
     return from(this.af.list(url).push(data));
   }
 
   updateFBData(url, round, data) {
-    return from(this.af.list(url).update(round, data));
+    return from(this.af.list(url).set(round, data));
+  }
+
+  updateFBData1(url, item, data) {
+    return this.af.list(url).update(item, data);
+  }
+
+  getUserId() {
+    return this.store.select(getUserId);
   }
 }

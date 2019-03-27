@@ -1,83 +1,124 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { BetSectionService } from "./bet-section.service";
 import { AngularFireList } from "@angular/fire/database";
-import { first, map, switchMap, tap } from "rxjs/operators";
-import { of, pipe } from "rxjs";
+import { first, map, switchMap, take, tap } from "rxjs/operators";
+import { forkJoin, of, pipe } from "rxjs";
 import { select, Store } from "@ngrx/store";
 import * as BetMatchActions from "./store/bet-section.actions";
 import * as AppActions from "../../store/app.actions";
 import { ActivatedRoute } from "@angular/router";
-import { getBetMatches, getCurrentRound } from "./store/bet-section.selectors";
+import {
+  getBetMatches,
+  getCurrentRound,
+  getMergedMatches,
+  getSelectedBetMatches
+} from "./store/bet-section.selectors";
 import { AuthService } from "../../core/auth.service";
 import { getUserId } from "../../store/app.selectors";
+import { FetchService } from "../../services/fetch.service";
 
 @Component({
   selector: "app-bet-section",
   templateUrl: "./bet-section.component.html",
   styleUrls: ["./bet-section.component.scss"]
 })
-export class BetSectionComponent implements OnInit, OnDestroy {
-  viewMode = "user";
+export class BetSectionComponent implements OnInit {
+  viewMode;
   matchDetails$;
   userId$;
   userId;
-  currentRound$;
-  currentRound;
-  userIdSubscription;
+  isBetsSelected$;
+  latestBet;
   constructor(
     private betSectionService: BetSectionService,
     private store: Store<{}>,
     private route: ActivatedRoute,
+    private fetchService: FetchService,
     public auth: AuthService
   ) {}
 
   ngOnInit() {
-    // this.matchDetails$ = this.betSectionService.getMatches().pipe(
-    //   map(data => {
-    //     this.store.dispatch(
-    //       new BetMatchActions.LoadBetMatches(
-    //         data.matches.map(match => ({
-    //           fixture_id: match.fixture_id,
-    //           awayTeam: match.awayTeam,
-    //           homeTeam: match.homeTeam,
-    //           awayTeamBetScore: undefined,
-    //           homeTeamBetScore: undefined
-    //         }))
-    //       )
+    // this.isBetsSelected$ = this.store.select(getSelectedBetsStatus);
+    this.userId$ = this.fetchService
+      .getUserId()
+      .pipe(
+        tap(userId => {
+          this.viewMode = userId ? "loggedUser" : "notLoggedUser";
+          this.userId = userId;
+        }),
+        switchMap(userId => {
+          return this.store.select(getBetMatches).pipe(
+            switchMap(data => {
+              if (data.matches) {
+                return of(data);
+              }
+              return this.betSectionService.getMatches().pipe(
+                tap(fbData => {
+                  this.store.dispatch(
+                    new BetMatchActions.LoadBetMatches(fbData)
+                  );
+                })
+              );
+            }),
+            map(matchDetails => ({ userId, matchDetails }))
+          );
+        }),
+        // switchMap(userId =>
+        //   this.store
+        //     .select(getCurrentRound)
+        //     .pipe(map(round => ({ userId, round })))
+        // ),
+        switchMap(obj =>
+          this.getLatestBet(obj.userId, obj.matchDetails.currentRound).pipe(
+            tap(roundBet => {
+              this.store.dispatch(new BetMatchActions.LoadLatestBet(roundBet));
+            }),
+            map(data => ({
+              userId: obj.userId,
+              matchDetails: obj.matchDetails,
+              roundBet: data
+            }))
+          )
+        ),
+        tap(data => (this.matchDetails$ = this.store.select(getMergedMatches)))
+      )
+      .subscribe(data => {
+        this.latestBet = data.roundBet;
+      });
+    // this.matchDetails$ = this.store
+    //   .select(getMergedMatches)
+    //   .pipe(tap(console.log));
+    // this.matchDetails$ = this.store.select(getBetMatches).pipe(
+    //   switchMap(data => {
+    //     if (data.matches) {
+    //       return of(data);
+    //     }
+    //     return this.betSectionService.getMatches().pipe(
+    //       tap(fbData => {
+    //         this.store.dispatch(new BetMatchActions.LoadBetMatches(fbData));
+    //       })
     //     );
-    //     return data;
     //   })
     // );
-    this.userId$ = this.store
-      .select(getUserId)
-      .subscribe(userId => (this.userId = userId));
-    this.currentRound$ = this.store
-      .select(getCurrentRound)
-      .subscribe(round => (this.currentRound = round));
-    this.matchDetails$ = this.store.select(getBetMatches).pipe(
-      switchMap(data => {
-        if (data.matches) {
-          return of(data);
-        }
-        return this.betSectionService.getMatches().pipe(
-          tap(fbData => {
-            this.store.dispatch(new BetMatchActions.LoadBetMatches(fbData));
-          })
-        );
-      })
-    );
   }
 
   resetSelections() {
     this.store.dispatch(new BetMatchActions.ResetSelections());
   }
 
-  submitBet(key, round, data) {
-    return this.betSectionService.submitBetMethod(key, round, data);
+  submitBet(key, round) {
+    this.store.select(getSelectedBetMatches).subscribe(data => {
+      this.betSectionService.submitBetMethod(key, round, { matches: data });
+    });
   }
 
-  ngOnDestroy() {
-    this.userId$.unsubscribe();
-    this.currentRound$.unsubscribe();
+  getLatestBet(userId, round) {
+    return this.betSectionService.getSubmittedBet(userId, round);
   }
+  // this method merges initial match details data with already submitted bet
+  mergeBetData(matchesData, bet) {}
+
+  // ngOnDestroy() {
+  //   this.userId$.unsubscribe();
+  // }
 }

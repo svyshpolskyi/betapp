@@ -7,6 +7,10 @@ import { AngularFireModule } from "@angular/fire";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { AngularFireDatabase } from "angularfire2/database";
+import {
+  AngularFireFunctionsModule,
+  FunctionsRegionToken
+} from "@angular/fire/functions";
 import { firebaseConfig } from "../environments/firebase.config";
 
 import { AppComponent } from "./app.component";
@@ -27,10 +31,15 @@ import { DateButtonsComponent } from "./components/date-buttons/date-buttons.com
 import { FetchService } from "./services/fetch.service";
 import { HelpersService } from "./services/helpers.service";
 import { BetSectionService } from "./containers/bet-section/bet-section.service";
+import { AdminSetScoresSectionService } from "./containers/admin-set-score-section/admin-set-score-section.service";
 import { AdminMatchSelectorService } from "./components/admin-match-selector/admin-match-selector.service";
+import { BetResultsSectionService } from "./containers/bet-results-section/bet-results-section.service";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 import { FormatDatePipe } from "./pipes/format-date.pipe";
 import { FormatRoundPipe } from "./pipes/format-round.pipe";
+import { FormatScorePipe } from "./pipes/format-score.pipe";
+import { FormatNumberPipe } from "./pipes/format-number.pipe";
 
 import { ModalDirective } from "./directives/modal.directive";
 
@@ -39,7 +48,11 @@ import { environment } from "../environments/environment";
 import { AdminSelectedMatchesComponent } from "./components/admin-selected-matches/admin-selected-matches.component";
 import { betMatchesReducer } from "./containers/bet-section/store/bet-section.reducers";
 import { appReducer } from "./store/app.reducers";
+import { AdminGuard } from "./core/admin.guard";
 import { AuthGuard } from "./core/auth.guard";
+import { AdminSetScoreSectionComponent } from "./containers/admin-set-score-section/admin-set-score-section.component";
+import { BetResultsSectionComponent } from "./containers/bet-results-section/bet-results-section.component";
+import { BetResultsComponent } from "./components/bet-results/bet-results.component";
 
 @NgModule({
   declarations: [
@@ -57,15 +70,21 @@ import { AuthGuard } from "./core/auth.guard";
     AdminComponent,
     FormatDatePipe,
     FormatRoundPipe,
+    FormatScorePipe,
+    FormatNumberPipe,
     AdminNewMatchesSectionComponent,
     ModalDirective,
     DateButtonsComponent,
-    AdminSelectedMatchesComponent
+    AdminSelectedMatchesComponent,
+    AdminSetScoreSectionComponent,
+    BetResultsSectionComponent,
+    BetResultsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularFireFunctionsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     StoreModule.forRoot({
       selectMatches: selectMatchesReducer,
@@ -83,8 +102,13 @@ import { AuthGuard } from "./core/auth.guard";
     HelpersService,
     BetSectionService,
     AdminMatchSelectorService,
+    AdminSetScoresSectionService,
+    BetResultsSectionService,
     AngularFireDatabase,
-    AuthGuard
+    AngularFireAuth,
+    AdminGuard,
+    AuthGuard,
+    { provide: FunctionsRegionToken, useValue: "us-central1" }
   ],
   bootstrap: [AppComponent]
 })

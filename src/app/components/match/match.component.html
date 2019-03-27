@@ -2,7 +2,8 @@
   [ngClass]="{
     adminSelection: viewMode === 'admin-selection',
     adminDisplay: viewMode === 'admin-display',
-    user: viewMode === 'user',
+    loggedUser: viewMode === 'loggedUser',
+    notLoggedUser: viewMode === 'notLoggedUser',
     resultSelected: isBetSubmitted
   }"
 >
@@ -12,12 +13,18 @@
     [ngClass]="{ matchSelected: match.selected }"
   >
     <div class="match-info">
-      <div class="leagueLogo" *ngIf="viewMode === 'user'">
+      <div
+        class="leagueLogo"
+        *ngIf="viewMode === 'loggedUser' || viewMode === 'notLoggedUser'"
+      >
         <img [src]="leagues[match.league_id].league_logo" alt="" />
       </div>
       <div class="date">{{ match.event_date | formatDate }}</div>
     </div>
-    <div class="match-header" *ngIf="viewMode === 'user'">
+    <div
+      class="match-header"
+      *ngIf="viewMode === 'loggedUser' || viewMode === 'notLoggedUser'"
+    >
       <div class="leagueName">
         {{ leagues[match.league_id].league_country | uppercase }}:
         {{ leagues[match.league_id].league_name }}
@@ -32,10 +39,19 @@
           [viewMode]="viewMode"
           [fixture_id]="match.fixture_id"
           [playingSide]="'home'"
-          [score]="match.homeTeamBetScore"
+          [score]="
+            mode === 'setScore' ? match.goalsHomeTeam : match.homeTeamBetScore
+          "
+          [isLatestBet]="isLatestBet"
+          [submitMode]="mode"
         ></app-team>
       </div>
-      <div class="separator" *ngIf="viewMode !== 'user'">-</div>
+      <div
+        class="separator"
+        *ngIf="viewMode !== 'loggedUser' && viewMode !== 'notLoggedUser'"
+      >
+        -
+      </div>
       <div class="team2">
         <app-team
           [teamName]="match.awayTeam"
@@ -43,7 +59,11 @@
           [viewMode]="viewMode"
           [fixture_id]="match.fixture_id"
           [playingSide]="'away'"
-          [score]="match.awayTeamBetScore"
+          [score]="
+            mode === 'setScore' ? match.goalsAwayTeam : match.awayTeamBetScore
+          "
+          [isLatestBet]="isLatestBet"
+          [submitMode]="mode"
         ></app-team>
       </div>
     </div>

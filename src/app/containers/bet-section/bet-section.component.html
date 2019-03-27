@@ -1,5 +1,9 @@
 <div *ngIf="(matchDetails$ | async) as matchDetails">
   <h3 class="roundHeader">Round {{ matchDetails.currentRound }}</h3>
+  <h5 *ngIf="latestBet" class="text-center">
+    You have already submitted bets for this round. Please check your selections
+    below:
+  </h5>
   <div class="row">
     <app-match
       *ngFor="let match of matchDetails.matches"
@@ -7,15 +11,19 @@
       [logos]="matchDetails.teamLogos"
       [leagues]="matchDetails.leagues"
       [viewMode]="viewMode"
+      [isLatestBet]="!!latestBet"
       class="col-md-6"
     ></app-match>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="viewMode !== 'notLoggedUser' && !latestBet">
     <div class="col-md-6">
       <button
         type="button"
         class="btn btn-danger actionButton"
-        (click)="submitBet(userId, currentRound, { test: 'test' })"
+        [disabled]="isBetsSelected$ | async"
+        (click)="
+          submitBet(userId, matchDetails.currentRound, matchDetails.matches)
+        "
       >
         Submit bet
       </button>

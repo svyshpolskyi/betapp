@@ -1,0 +1,31 @@
+<div
+  class="betResult"
+  [ngClass]="{
+    maxRes: match.points === 5,
+    midRes: match.points === 3,
+    minRes: match.points === 1,
+    zeroRes: match.points === 0 && match.goalsHomeTeam && match.goalsAwayTeam,
+    noRes: !match.goalsHomeTeam && !match.goalsAwayTeam
+  }"
+>
+  <div class="betMatch">
+    <div class="team1">
+      <div class="teamName">{{ match.homeTeam }}</div>
+      <div class="score">{{ match.goalsHomeTeam | formatScore: match }}</div>
+    </div>
+    <div class="team2">
+      <div class="score">{{ match.goalsAwayTeam | formatScore: match }}</div>
+      <div class="teamName">{{ match.awayTeam }}</div>
+    </div>
+  </div>
+  <div class="results text-center">
+    <div class="predictedResult">
+      Predicted result {{ match.homeTeamBetScore }}-{{
+        match.awayTeamBetScore
+      }}.
+    </div>
+    <div class="earnedPoints">
+      Earned points - {{ match.points | formatScore: match }}
+    </div>
+  </div>
+</div>
