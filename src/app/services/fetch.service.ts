@@ -7,6 +7,7 @@ import { from } from "rxjs";
 import { select, Store } from "@ngrx/store";
 import { getUserId } from "../store/app.selectors";
 import { AngularFireFunctions } from "@angular/fire/functions";
+import { take } from "rxjs/operators";
 
 @Injectable()
 export class FetchService {
@@ -69,7 +70,7 @@ export class FetchService {
   }
 
   updateFBData(url, round, data) {
-    return from(this.af.list(url).set(round, data));
+    return from(this.af.list(url).set(round, data)).pipe(take(1));
   }
 
   updateFBData1(url, item, data) {

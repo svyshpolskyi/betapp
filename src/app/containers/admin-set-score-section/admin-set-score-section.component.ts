@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AdminSetScoresSectionService } from "./admin-set-score-section.service";
-import { map, tap } from "rxjs/operators";
+import { map, take, tap } from "rxjs/operators";
 
 @Component({
   selector: "app-admin-set-score-section",
@@ -21,6 +21,7 @@ export class AdminSetScoreSectionComponent implements OnInit {
   submitResults() {
     return this.adminSetScoresSectionService
       .getResultsToSubmit()
+      .pipe(take(1))
       .subscribe(data => {
         console.log(data);
         this.adminSetScoresSectionService.submitScoresMethod(
