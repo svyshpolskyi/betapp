@@ -53,6 +53,7 @@ import { AuthGuard } from "./core/auth.guard";
 import { AdminSetScoreSectionComponent } from "./containers/admin-set-score-section/admin-set-score-section.component";
 import { BetResultsSectionComponent } from "./containers/bet-results-section/bet-results-section.component";
 import { BetResultsComponent } from "./components/bet-results/bet-results.component";
+import { BetTableComponent } from "./containers/bet-table/bet-table.component";
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { BetResultsComponent } from "./components/bet-results/bet-results.compon
     AdminSelectedMatchesComponent,
     AdminSetScoreSectionComponent,
     BetResultsSectionComponent,
-    BetResultsComponent
+    BetResultsComponent,
+    BetTableComponent
   ],
   imports: [
     BrowserModule,
