@@ -1,5 +1,5 @@
 <ng-container *ngIf="(isLoggedIn$ | async)">
-  <div class="col-md-8 mx-auto" *ngIf="(betResults$ | async) as betResults">
+  <div class="col-xl-12 mx-auto" *ngIf="(betResults$ | async) as betResults">
     <h5 *ngIf="betResults.currentRound">
       Your results on round {{ betResults.currentRound }}
     </h5>

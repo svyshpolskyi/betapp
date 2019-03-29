@@ -11,7 +11,8 @@ import {
   getBetMatches,
   getCurrentRound,
   getMergedMatches,
-  getSelectedBetMatches
+  getSelectedBetMatches,
+  getSelectedBetsStatus
 } from "./store/bet-section.selectors";
 import { AuthService } from "../../core/auth.service";
 import { getUserId } from "../../store/app.selectors";
@@ -38,7 +39,7 @@ export class BetSectionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.isBetsSelected$ = this.store.select(getSelectedBetsStatus);
+    this.isBetsSelected$ = this.store.select(getSelectedBetsStatus);
     this.userId$ = this.fetchService
       .getUserId()
       .pipe(

@@ -1,5 +1,6 @@
 //:host-context(.betSection) {
-.loggedUser, .notLoggedUser {
+.loggedUser,
+.notLoggedUser {
   .team {
     display: grid;
     position: relative;
@@ -47,10 +48,31 @@
   }
 }
 
-.notLoggedUser, .latestBet {
+.notLoggedUser,
+.latestBet {
   .scoreTeam:hover {
     cursor: inherit;
     background-color: inherit;
   }
 }
 
+@media screen and (max-width: 1700px) {
+  .team .teamLogo img {
+    max-width: 26px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .loggedUser,
+  .notLoggedUser {
+    .team {
+      min-height: 42px;
+    }
+    .teamName {
+      padding: 0;
+    }
+    .teamLogo img {
+      max-height: 26px;
+    }
+  }
+}

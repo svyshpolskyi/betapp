@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: "personal",
     component: PersonalComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard]
   },
   {
     path: "admin",

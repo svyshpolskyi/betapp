@@ -1,3 +1,21 @@
 table.table-bordered tr th {
   border: 1px solid #737386;
 }
+
+@media screen and (max-width: 1800px) {
+  .table {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .table {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  .table {
+    font-size: 10px;
+  }
+}

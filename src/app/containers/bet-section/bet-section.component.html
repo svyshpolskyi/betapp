@@ -12,11 +12,11 @@
       [leagues]="matchDetails.leagues"
       [viewMode]="viewMode"
       [isLatestBet]="!!latestBet"
-      class="col-md-6"
+      class="col-md-12 col-lg-6"
     ></app-match>
   </div>
   <div class="row" *ngIf="viewMode !== 'notLoggedUser' && !latestBet">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <button
         type="button"
         class="btn btn-danger actionButton"

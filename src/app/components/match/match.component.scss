@@ -1,4 +1,5 @@
-.loggedUser, .notLoggedUser {
+.loggedUser,
+.notLoggedUser {
   padding: 3px;
   margin: 10px 0;
 }
@@ -8,8 +9,8 @@
   background-color: #003d4c;
 }
 
-.loggedUser, .notLoggedUser {
-
+.loggedUser,
+.notLoggedUser {
   .card-header {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
@@ -36,7 +37,6 @@
     display: grid;
     grid-template-columns: 4fr 1fr 2fr 1fr 4fr;
   }
-
 
   .leagueLogo {
     text-align: center;
@@ -70,7 +70,6 @@
     font-size: 13px;
   }
 
-
   .match {
     display: grid;
     grid-template-columns: 1fr 5fr;
@@ -81,20 +80,21 @@
   .match-info {
     grid-column: 1/2;
     grid-row: 1/3;
-    border-right: 1px solid rgba(0,0,0,.125);
+    border-right: 1px solid rgba(0, 0, 0, 0.125);
     display: grid;
     grid-template-rows: 48px 1fr;
     padding: 5px;
   }
 
-  .match-header, .match-body {
+  .match-header,
+  .match-body {
     grid-column: 2/3;
   }
 
   .match-header {
     display: grid;
     grid-template-columns: 3fr 2fr;
-    border-bottom: 1px solid rgba(0,0,0,.125);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     font-size: 11px;
     padding: 7px 9px;
     color: #fff;
@@ -105,7 +105,6 @@
     grid-template-rows: 1fr 1fr;
     color: #fff;
   }
-
 
   .scoreSelections {
     position: absolute;
@@ -127,10 +126,10 @@
   .scoreSelections .btn:focus {
     box-shadow: inset 0 0 18px #00ffdc;
   }
-
 }
 
-.adminSelection, .adminDisplay {
+.adminSelection,
+.adminDisplay {
   .match {
     display: grid;
     grid-template-columns: 1fr 6fr;
@@ -151,12 +150,12 @@
     text-align: center;
   }
 
-
   .separator {
     justify-self: center;
   }
 
-  .team1, .team2 {
+  .team1,
+  .team2 {
     align-self: center;
   }
 
@@ -171,14 +170,74 @@
   .matchSelected {
     background-color: #62c462;
   }
-
 }
 
 .adminDisplay {
-
   .matchSelected {
     background-color: transparent;
   }
-
 }
 
+@media screen and (max-width: 1850px) {
+  .match .match-header {
+    font-size: 60%;
+  }
+}
+
+@media screen and (max-width: 1700px) {
+  .match-header .round {
+    display: none;
+  }
+
+  .match .match-header {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .loggedUser,
+  .notLoggedUser {
+    .match-info {
+      grid-row: 1/2;
+      grid-template-rows: auto;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    .leagueLogo {
+      display: none;
+    }
+    .match-body {
+      grid-column: 1/3;
+    }
+
+    .match-header {
+      font-size: 9px;
+      text-align: center;
+    }
+    .match {
+      grid-template-columns: 2fr 5fr;
+    }
+    .date {
+      font-size: 9px;
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1220px) {
+  .loggedUser,
+  .notLoggedUser {
+    .match-header {
+      padding: 7px 0;
+      font-size: 8px;
+    }
+
+    .match-info {
+      border-right: none;
+      padding: 2px;
+    }
+
+    .date {
+      font-size: 8px;
+    }
+  }
+}

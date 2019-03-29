@@ -15,17 +15,17 @@ export const getSelectedBetStatus = createSelector(
   }
 );
 
-// export const getSelectedBetsStatus = createSelector(
-//   getBetMatchesReducer,
-//   state => {
-//     return state.matches
-//       .map(
-//         match =>
-//           !isNaN(match.homeTeamBetScore) && !isNaN(match.awayTeamBetScore)
-//       )
-//       .includes(false);
-//   }
-// );
+export const getSelectedBetsStatus = createSelector(
+  getBetMatchesReducer,
+  state => {
+    return state.matches
+      .map(
+        match =>
+          !isNaN(match.homeTeamBetScore) && !isNaN(match.awayTeamBetScore)
+      )
+      .includes(false);
+  }
+);
 
 export const getSelectedBetMatches = createSelector(
   getBetMatchesReducer,
