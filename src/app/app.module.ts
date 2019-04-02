@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { Core } from "./core/core.module";
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AngularFireModule } from "@angular/fire";
 import { StoreModule } from "@ngrx/store";
@@ -47,6 +48,7 @@ import { selectMatchesReducer } from "./containers/admin-new-matches-section/sto
 import { environment } from "../environments/environment";
 import { AdminSelectedMatchesComponent } from "./components/admin-selected-matches/admin-selected-matches.component";
 import { betMatchesReducer } from "./containers/bet-section/store/bet-section.reducers";
+import { resultsReducer } from "./containers/admin-set-score-section/store/admin-set-score-section.reducers";
 import { appReducer } from "./store/app.reducers";
 import { AdminGuard } from "./core/admin.guard";
 import { AuthGuard } from "./core/auth.guard";
@@ -54,6 +56,15 @@ import { AdminSetScoreSectionComponent } from "./containers/admin-set-score-sect
 import { BetResultsSectionComponent } from "./containers/bet-results-section/bet-results-section.component";
 import { BetResultsComponent } from "./components/bet-results/bet-results.component";
 import { BetTableComponent } from "./containers/bet-table/bet-table.component";
+import { AdminCustomMatchComponent } from "./components/admin-custom-match/admin-custom-match.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatInputModule,
+  MatNativeDateModule
+} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -80,24 +91,33 @@ import { BetTableComponent } from "./containers/bet-table/bet-table.component";
     AdminSetScoreSectionComponent,
     BetResultsSectionComponent,
     BetResultsComponent,
-    BetTableComponent
+    BetTableComponent,
+    AdminCustomMatchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     AngularFireFunctionsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     StoreModule.forRoot({
       selectMatches: selectMatchesReducer,
       betMatches: betMatchesReducer,
-      app: appReducer
+      app: appReducer,
+      results: resultsReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
     }),
-    Core
+    Core,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     FetchService,

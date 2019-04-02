@@ -177,6 +177,13 @@
     background-color: transparent;
   }
 }
+:host-context(.setResults) .match-header {
+  grid-template-columns: 1fr;
+}
+
+:host-context(.setResults) .match-header .round {
+  display: none;
+}
 
 @media screen and (max-width: 1850px) {
   .match .match-header {

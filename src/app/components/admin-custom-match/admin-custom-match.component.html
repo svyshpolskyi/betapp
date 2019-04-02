@@ -1,0 +1,70 @@
+<form #form="ngForm" (ngSubmit)="addMatch(form.value)">
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Home team</mat-label>
+      <label for="homeTeam"></label
+      ><input
+        matInput
+        id="homeTeam"
+        name="homeTeam"
+        required
+        [(ngModel)]="match.homeTeam"
+        #homeTeam="ngModel"
+      />
+      <mat-error *ngIf="homeTeam.touched && homeTeam.invalid"
+        >Home team is required</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Away team</mat-label>
+      <label for="awayTeam"></label
+      ><input
+        matInput
+        type="text"
+        id="awayTeam"
+        name="awayTeam"
+        required
+        [(ngModel)]="match.awayTeam"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Choose a date"
+        [(ngModel)]="match.date"
+        id="matchDate"
+        name="matchDate"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Time</mat-label>
+      <label for="matchTime"></label
+      ><input
+        matInput
+        id="matchTime"
+        name="matchTime"
+        required
+        [(ngModel)]="match.matchTime"
+      />
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <label for="homeLogo">Home team logo</label>
+    <input type="text" class="form-control" id="homeLogo" />
+  </div>
+  <div class="form-group">
+    <label for="awayLogo">Away team logo</label>
+    <input type="text" class="form-control" id="awayLogo" />
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+    Submit
+  </button>
+</form>

@@ -1,24 +1,35 @@
-<div *ngIf="(matchesToSetScore$ | async) as matchesToSetScore">
-  <div class="setScores row">
-    <h5 class="text-center">Set latest scores</h5>
+<ng-container *ngIf="!(resultsSubmissionState$ | async).success">
+  <div *ngIf="(matchesToSetScore$ | async) as matchesToSetScore" class="row">
+    <div class="setScores col-md-12">
+      <h5 class="text-center">Set latest scores</h5>
+    </div>
+    <div
+      *ngFor="let match of matchesToSetScore.matches"
+      class="col-md-5 setResults"
+    >
+      <app-match
+        [match]="match"
+        [logos]="matchesToSetScore.teamLogos"
+        [leagues]="matchesToSetScore.leagues"
+        [viewMode]="'loggedUser'"
+        [isLatestBet]="false"
+        [mode]="'setScore'"
+      ></app-match>
+    </div>
   </div>
-  <div
-    class="row"
-    *ngFor="let match of matchesToSetScore.matches"
-    class="col-md-6"
-  >
-    <app-match
-      [match]="match"
-      [logos]="matchesToSetScore.teamLogos"
-      [leagues]="matchesToSetScore.leagues"
-      [viewMode]="'loggedUser'"
-      [isLatestBet]="false"
-      [mode]="'setScore'"
-    ></app-match>
-  </div>
-  <div class="row">
+  <div>
     <button class="btn btn-primary" (click)="submitResults()">
       Add results
     </button>
   </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="(resultsSubmissionState$ | async).success">
+  <div class="text-center">Results were successfully submitted</div>
+  <div class="text-center">Check standings by the link below:</div>
+  <div class="text-center">
+    <button type="button" class="btn btn-secondary" routerLink="/">
+      Go to standings
+    </button>
+  </div>
+</ng-container>

@@ -72,7 +72,12 @@ export class BetSectionComponent implements OnInit {
         switchMap(obj =>
           this.getLatestBet(obj.userId, obj.matchDetails.currentRound).pipe(
             tap(roundBet => {
-              this.store.dispatch(new BetMatchActions.LoadLatestBet(roundBet));
+              this.store.dispatch(
+                new BetMatchActions.LoadLatestBet({
+                  roundBet,
+                  round: obj.matchDetails.currentRound
+                })
+              );
             }),
             map(data => ({
               userId: obj.userId,

@@ -70,13 +70,6 @@ export const getMergedMatches = createSelector(
         return match;
       });
     }
-    // else {
-    //   state.betMatches.matches.map(match => {
-    //     match.homeTeamBetScore = null;
-    //     match.awayTeamBetScore = null;
-    //     return match;
-    //   });
-    // }
     return { ...state.betMatches };
   }
 );
@@ -96,4 +89,9 @@ export const getResults = createSelector(
       }, {})
     };
   }
+);
+
+export const getRoundForTable = createSelector(
+  getBetAndLatestBetReducer,
+  state => state.latestRound
 );

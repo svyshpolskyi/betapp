@@ -54,7 +54,10 @@ export function betMatchesReducer(
     case BetMatchActions.LOAD_LATEST_BET:
       return {
         ...state,
-        latestBet: action.payload
+        latestBet: action.payload.roundBet,
+        latestRound: action.payload.roundBet
+          ? action.payload.round
+          : action.payload.round - 1
       };
     case BetMatchActions.SET_RESULT:
       return {

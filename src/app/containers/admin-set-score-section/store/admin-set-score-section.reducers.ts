@@ -1,33 +1,45 @@
-import * as MatchActions from "./admin-set-score-section.actions";
 import * as SetScoreActions from "./admin-set-score-section.actions";
 
 const initialState = {
-  betMatches: {}
+  pending: false,
+  success: false,
+  error: false
 };
 
-export function setScoresReducer(
+export function resultsReducer(
   state = initialState,
   action: SetScoreActions.SetScoreActions
 ) {
   switch (action.type) {
-    case SetScoreActions.SET_RESULT:
-      console.log("test");
+    case SetScoreActions.SET_ROUND_RESULT:
       return {
         ...state,
-        betMatches: {
-          ...state.betMatches,
-          matches: state.betMatches["matches"].map(match => {
-            console.log(match);
-            if (match.fixture_id === action.payload.fixture_id) {
-              if (action.payload.playingSide === "home") {
-                match.goalsHomeTeam = action.payload.score;
-              } else {
-                match.goalsAwayTeam = action.payload.score;
-              }
-            }
-            return match;
-          })
-        }
+        pending: true,
+        error: false,
+        success: false
       };
+    case SetScoreActions.SET_ROUND_RESULT_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        success: true
+      };
+    case SetScoreActions.SET_ROUND_RESULT_FAILURE:
+      return {
+        ...state,
+        pending: false,
+        error: true,
+        success: false
+      };
+    case SetScoreActions.RESET_ROUND_RESULT:
+      return {
+        ...state,
+        pending: false,
+        error: false,
+        success: false
+      };
+    default:
+      return state;
   }
 }

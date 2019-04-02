@@ -6,6 +6,7 @@ import { AdminComponent } from "./layouts/admin/admin.component";
 import { AdminMatchSelectorComponent } from "./components/admin-match-selector/admin-match-selector.component";
 import { AdminGuard } from "./core/admin.guard";
 import { AuthGuard } from "./core/auth.guard";
+import { AdminCustomMatchComponent } from "./components/admin-custom-match/admin-custom-match.component";
 
 const routes: Routes = [
   {
@@ -21,7 +22,10 @@ const routes: Routes = [
     path: "admin",
     component: AdminComponent,
     canActivate: [AdminGuard],
-    children: [{ path: ":date", component: AdminMatchSelectorComponent }]
+    children: [
+      { path: "addMatch", component: AdminCustomMatchComponent },
+      { path: ":date", component: AdminMatchSelectorComponent }
+    ]
   }
 ];
 

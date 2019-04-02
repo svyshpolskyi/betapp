@@ -1,19 +1,23 @@
-<ng-container *ngIf="(table$ | async) as table">
-  <h5>Players standing after round</h5>
-  <table class="table table-bordered text-center">
-    <thead class="bg-success">
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Points</th>
-      </tr>
-    </thead>
-    <tbody class="table-success">
-      <tr *ngFor="let user of table">
-        <th>{{ user.place }}</th>
-        <th>{{ user.displayName }}</th>
-        <th>{{ user.points }}</th>
-      </tr>
-    </tbody>
-  </table>
+<ng-container *ngIf="(isLoggedIn$ | async)">
+  <ng-container *ngIf="(table$ | async) as table">
+    <ng-container *ngIf="(round$ | async) as round">
+      <h5>Players standing after round {{ round$ | async }}</h5>
+    </ng-container>
+    <table class="table table-bordered text-center">
+      <thead class="bg-success">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody class="table-success">
+        <tr *ngFor="let user of table">
+          <th>{{ user.place }}</th>
+          <th>{{ user.displayName }}</th>
+          <th>{{ user.points }}</th>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
 </ng-container>
