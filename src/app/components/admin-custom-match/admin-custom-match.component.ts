@@ -69,7 +69,7 @@ export class AdminCustomMatchComponent implements OnInit {
     //   .subscribe(console.log);
   }
 
-  addMatch() {
+  addMatch(form) {
     // return this.fetchService.updateFBData(
     //   `data/tournament/${this.lastRoundId}/matches/`,
     //   "8",
