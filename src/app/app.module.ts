@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { Core } from "./core/core.module";
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
 import { AngularFireModule } from "@angular/fire";
 import { StoreModule } from "@ngrx/store";
@@ -59,12 +59,14 @@ import { BetTableComponent } from "./containers/bet-table/bet-table.component";
 import { AdminCustomMatchComponent } from "./components/admin-custom-match/admin-custom-match.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
+  MatAutocompleteModule,
   MatButtonModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatInputModule,
   MatNativeDateModule
 } from "@angular/material";
+import { DatePipe } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -98,7 +100,7 @@ import {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    ReactiveFormsModule,
     AngularFireFunctionsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     StoreModule.forRoot({
@@ -117,7 +119,8 @@ import {
     MatCheckboxModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatAutocompleteModule
   ],
   providers: [
     FetchService,
@@ -126,6 +129,7 @@ import {
     AdminMatchSelectorService,
     AdminSetScoresSectionService,
     BetResultsSectionService,
+    DatePipe,
     AngularFireDatabase,
     AngularFireAuth,
     AdminGuard,

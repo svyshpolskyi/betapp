@@ -35,7 +35,7 @@
       <div class="team1">
         <app-team
           [teamName]="match.homeTeam"
-          [teamLogo]="logos ? logos[match.homeTeam_id] : false"
+          [teamLogo]="logos ? logos[match.homeTeam_id].logo : false"
           [viewMode]="viewMode"
           [fixture_id]="match.fixture_id"
           [playingSide]="'home'"
@@ -55,7 +55,7 @@
       <div class="team2">
         <app-team
           [teamName]="match.awayTeam"
-          [teamLogo]="logos ? logos[match.awayTeam_id] : false"
+          [teamLogo]="logos ? logos[match.awayTeam_id].logo : false"
           [viewMode]="viewMode"
           [fixture_id]="match.fixture_id"
           [playingSide]="'away'"

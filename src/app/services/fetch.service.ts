@@ -43,6 +43,10 @@ export class FetchService {
     return this.http.get(this.footerLeaguesURL, { headers: this.headers });
   }
 
+  getApiData(url) {
+    return this.http.get(url, { headers: this.headers });
+  }
+
   getMatchDetails() {
     return this.http.get("assets/db.json");
   }
@@ -61,6 +65,10 @@ export class FetchService {
     return this.af.list(url).valueChanges();
   }
 
+  getFBLastItem(url) {
+    return this.af.list(url, ref => ref.limitToLast(1)).snapshotChanges();
+  }
+
   getFBDataAsObj(url) {
     return this.af.object(url).valueChanges();
   }
@@ -69,8 +77,8 @@ export class FetchService {
     return from(this.af.list(url).push(data));
   }
 
-  updateFBData(url, round, data) {
-    return from(this.af.list(url).set(round, data)).pipe(take(1));
+  updateFBData(url, key, data) {
+    return from(this.af.list(url).set(key, data)).pipe(take(1));
   }
 
   updateFBData1(url, item, data) {
