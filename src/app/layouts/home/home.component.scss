@@ -12,5 +12,14 @@
 
   .home {
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  app-bet-results-section {
+    grid-row: 2/3;
+  }
+
+  app-bet-table {
+    grid-row: 0/1;
   }
 }
