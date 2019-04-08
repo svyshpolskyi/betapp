@@ -13,7 +13,6 @@ export function selectMatchesReducer(
 ) {
   switch (action.type) {
     case MatchActions.ADD_MATCHES:
-      console.log(action.payload);
       return {
         ...state,
         loadedMatches: state.loadedMatches.map(matchDay => {

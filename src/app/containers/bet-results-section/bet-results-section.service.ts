@@ -6,24 +6,33 @@ import {
 } from "../bet-section/store/bet-section.selectors";
 import { filter, map, switchMap, tap } from "rxjs/operators";
 import { HelpersService } from "../../services/helpers.service";
-import { combineLatest, of } from "rxjs";
+import { combineLatest, Observable, of } from "rxjs";
 import { FetchService } from "../../services/fetch.service";
-import { getUserId } from "../../store/app.selectors";
+import { AngularFirestore } from "@angular/fire/firestore";
 
+import { getUserId } from "../../store/app.selectors";
+interface User {
+  uid: string;
+  email: string;
+  photoURL?: string;
+  displayName?: string;
+  favoriteColor?: string;
+}
 @Injectable()
 export class BetResultsSectionService {
   constructor(
     private store: Store<{}>,
     private helpersService: HelpersService,
-    private fetchService: FetchService
+    private fetchService: FetchService,
+    private afs: AngularFirestore
   ) {}
 
-  getRoundData() {
-    return this.store.select(getUserId).pipe(
-      switchMap(userId => {
+  getRoundData(userId) {
+    return of(userId).pipe(
+      switchMap(id => {
         return this.store.select(getCurrentRound).pipe(
           map(round => {
-            return { userId, round };
+            return { userId: id, round };
           })
         );
       }),
@@ -39,7 +48,6 @@ export class BetResultsSectionService {
       ),
       switchMap(res => {
         return this.fetchService.getFBData("data/tournament").pipe(
-          // tap(console.log),
           map(matches => {
             return {
               userId: res.userId,
@@ -69,5 +77,19 @@ export class BetResultsSectionService {
         };
       })
     );
+  }
+
+  getAllUsers() {
+    return combineLatest(
+      this.fetchService.getFBData("table"),
+      this.store.select(getUserId)
+    ).pipe(
+      map(data => ({
+        users: data[0],
+        selectedUser: data[0].find(user => user["userId"] === data[1])
+      }))
+    );
+    // return this.store.select(getUserId);
+    // return this.fetchService.getFBData("table");
   }
 }

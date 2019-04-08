@@ -1,15 +1,32 @@
-<ng-container *ngIf="(isLoggedIn$ | async)">
-  <div class="col-xl-12 mx-auto" *ngIf="(betResults$ | async) as betResults">
-    <h5 *ngIf="betResults.currentRound">
-      Your results on round {{ betResults.currentRound }}
-    </h5>
-    <ng-container *ngFor="let match of betResults.matches">
-      <app-bet-results [match]="match"></app-bet-results>
-    </ng-container>
-    <hr />
-    <div>
-      Your total result for {{ betResults.currentRound | formatNumber }} round:
-      <span class="totalPoints">{{ totalPoints }} points</span>
+<ng-container *ngIf="(isLoggedIn$ | async)"
+  ><ng-container *ngIf="(allUsers$ | async) as allUsers">
+    <div class="col-xl-12 mx-auto" *ngIf="(betResults$ | async) as betResults">
+      <div class="betResultsHeader">
+        <div *ngIf="betResults.currentRound" class="resultsHeading">
+          Results on round {{ betResults.currentRound }}
+        </div>
+        <div class="usersMenu" *ngIf="isAnyResultExist">
+          <mat-form-field>
+            <mat-label>Select player</mat-label>
+            <mat-select (selectionChange)="selectChanged($event)">
+              <mat-option
+                *ngFor="let user of allUsers.users"
+                [value]="user.displayName"
+              >
+                {{ user.displayName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <ng-container *ngFor="let match of betResults.matches">
+        <app-bet-results [match]="match"></app-bet-results>
+      </ng-container>
+      <hr />
+      <div>
+        Total result for {{ betResults.currentRound | formatNumber }} round:
+        <span class="totalPoints">{{ totalPoints }} points</span>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </ng-container>

@@ -63,8 +63,10 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatDatepickerModule,
+  MatFormFieldModule,
   MatInputModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSelectModule
 } from "@angular/material";
 import { DatePipe } from "@angular/common";
 
@@ -120,7 +122,9 @@ import { DatePipe } from "@angular/common";
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [
     FetchService,

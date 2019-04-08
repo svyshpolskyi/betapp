@@ -29,7 +29,6 @@ export class AdminSetScoreSectionComponent implements OnInit, OnDestroy {
       .getResultsToSubmit()
       .pipe(take(1))
       .subscribe(data => {
-        console.log(data);
         this.adminSetScoresSectionService
           .submitScoresMethod(data.currentRoundId, data.matches)
           .subscribe(() => {

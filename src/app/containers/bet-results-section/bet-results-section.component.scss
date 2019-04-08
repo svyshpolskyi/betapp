@@ -1,3 +1,18 @@
 .totalPoints {
   font-weight: bold;
 }
+
+.betResultsHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.betResultsHeader .resultsHeading {
+  align-self: center;
+  font-size: 20px;
+}
+
+.betResultsHeader .usersMenu {
+  align-self: center;
+  justify-self: end;
+}
