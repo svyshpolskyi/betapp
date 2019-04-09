@@ -1,6 +1,6 @@
 <div *ngIf="(matchDetails$ | async) as matchDetails">
   <h3 class="roundHeader">Round {{ matchDetails.currentRound }}</h3>
-  <h5 *ngIf="latestBet" class="text-center">
+  <h5 *ngIf="latestBet" class="text-center roundTextHeader">
     You have already submitted bets for this round. Please check your selections
     below:
   </h5>

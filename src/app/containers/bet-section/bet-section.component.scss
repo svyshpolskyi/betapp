@@ -1,3 +1,17 @@
 .actionButton {
   margin-right: 5px;
 }
+
+@media screen and (max-width: 1400px) {
+  .roundHeader,
+  .roundTextHeader {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .roundHeader,
+  .roundTextHeader {
+    font-size: 14px;
+  }
+}

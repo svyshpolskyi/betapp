@@ -1,7 +1,9 @@
 <ng-container *ngIf="(isLoggedIn$ | async)">
   <ng-container *ngIf="(table$ | async) as table">
     <ng-container *ngIf="(round$ | async) as round">
-      <h5>Players standing after round {{ round$ | async }}</h5>
+      <h5 class="tableHeading">
+        Players standing after round {{ round$ | async }}
+      </h5>
     </ng-container>
     <table class="table table-bordered text-center">
       <thead class="bg-success">

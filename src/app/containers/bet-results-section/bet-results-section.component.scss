@@ -9,10 +9,52 @@
 
 .betResultsHeader .resultsHeading {
   align-self: center;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .betResultsHeader .usersMenu {
   align-self: center;
   justify-self: end;
+}
+
+::ng-deep.betResultsHeader mat-form-field {
+  font-size: 14px;
+}
+
+@media screen and (max-width: 1400px) {
+  ::ng-deep.betResultsHeader mat-form-field {
+    font-size: 12px;
+  }
+
+  .betResultsHeader .resultsHeading {
+    font-size: 14px;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    width: 140px !important;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .betResultsHeader .resultsHeading {
+    font-size: 12px;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    width: 130px !important;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .betResultsHeader .resultsHeading {
+    font-size: 10px;
+  }
+
+  ::ng-deep.betResultsHeader mat-form-field {
+    font-size: 10px;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    width: 110px !important;
+  }
 }
