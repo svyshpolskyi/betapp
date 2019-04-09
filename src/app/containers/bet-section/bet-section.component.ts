@@ -15,7 +15,7 @@ import {
   getSelectedBetsStatus
 } from "./store/bet-section.selectors";
 import { AuthService } from "../../core/auth.service";
-import { getUserId } from "../../store/app.selectors";
+import { getUser, getUserId } from "../../store/app.selectors";
 import { FetchService } from "../../services/fetch.service";
 
 @Component({
@@ -113,6 +113,14 @@ export class BetSectionComponent implements OnInit {
   }
 
   submitBet(key, round) {
+    this.fetchService.getUser().subscribe(data => {
+      console.log(data);
+      this.fetchService.pushFBData("table", {
+        displayName: data.displayName,
+        userId: data.userID,
+        points: 0
+      });
+    });
     this.store.select(getSelectedBetMatches).subscribe(data => {
       this.betSectionService.submitBetMethod(key, round, { matches: data });
     });

@@ -7,6 +7,6 @@ export class FormatRoundPipe implements PipeTransform {
   transform(data): any {
     return !isNaN(+data.split(" ").pop())
       ? `Round ${data.split(" ").pop()}`
-      : data;
+      : data.split("-").pop();
   }
 }

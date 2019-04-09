@@ -5,7 +5,7 @@ import { AngularFireDatabase } from "@angular/fire/database";
 import { Observable, throwError } from "rxjs";
 import { from } from "rxjs";
 import { select, Store } from "@ngrx/store";
-import { getUserId } from "../store/app.selectors";
+import { getUserId, getUser } from "../store/app.selectors";
 import { AngularFireFunctions } from "@angular/fire/functions";
 import { take } from "rxjs/operators";
 
@@ -87,5 +87,9 @@ export class FetchService {
 
   getUserId() {
     return this.store.select(getUserId);
+  }
+
+  getUser() {
+    return this.store.select(getUser);
   }
 }

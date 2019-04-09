@@ -13,3 +13,8 @@ export const getUserId = createSelector(
   getUserReducer,
   state => state.userID
 );
+
+export const getUser = createSelector(
+  getUserReducer,
+  state => state
+);
