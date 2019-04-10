@@ -11,11 +11,11 @@ export class BetResultsComponent implements OnInit {
 
   ngOnInit() {}
 
-  tranformResult(result1, result2) {
+  transformResult(result1, result2) {
     if (isNaN(result1) && isNaN(result2)) {
       return "No predicted result";
     } else {
-      return `Predicted result ${result1}-${result1}`;
+      return `Predicted result ${result1}-${result2}`;
     }
   }
 }
