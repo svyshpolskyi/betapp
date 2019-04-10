@@ -19,10 +19,13 @@ export const getSelectedBetsStatus = createSelector(
   getBetMatchesReducer,
   state => {
     return state.matches
-      .map(
-        match =>
-          !isNaN(match.homeTeamBetScore) && !isNaN(match.awayTeamBetScore)
-      )
+      .map(match => {
+        return (
+          (match.homeTeamBetScore === "n/a" ||
+            !isNaN(match.homeTeamBetScore)) &&
+          (match.awayTeamBetScore === "n/a" || !isNaN(match.awayTeamBetScore))
+        );
+      })
       .includes(false);
   }
 );
@@ -70,7 +73,18 @@ export const getMergedMatches = createSelector(
         return match;
       });
     }
-    return { ...state.betMatches };
+    return {
+      ...state.betMatches,
+      matches: state.betMatches.matches.filter(
+        match =>
+          !(
+            match.goalsHomeTeam &&
+            match.homeTeamBetScore === "n/a" &&
+            match.goalsAwayTeam &&
+            match.awayTeamBetScore === "n/a"
+          )
+      )
+    };
   }
 );
 

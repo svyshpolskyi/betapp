@@ -13,7 +13,16 @@ export function betMatchesReducer(
     case BetMatchActions.LOAD_BET_MATCHES:
       return {
         ...state,
-        betMatches: action.payload
+        betMatches: {
+          ...action.payload,
+          matches: action.payload.matches.map(match => {
+            return {
+              ...match,
+              homeTeamBetScore: match.goalsHomeTeam ? "n/a" : undefined,
+              awayTeamBetScore: match.goalsAwayTeam ? "n/a" : undefined
+            };
+          })
+        }
       };
     case BetMatchActions.RESET_BET_MATCHES:
       return {

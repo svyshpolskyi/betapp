@@ -33,7 +33,6 @@ export class BetResultsSectionComponent implements OnInit {
     this.selectedUserSubject$ = new BehaviorSubject<{}>(this.selectedUser);
     this.allUsers$ = this.betResultsSectionService.getAllUsers().pipe(
       tap(res => {
-        console.log("is");
         this.allUsers = res.users;
         this.selectedUserSubject$.next(res);
       })

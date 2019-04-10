@@ -20,9 +20,7 @@
   </div>
   <div class="results text-center">
     <div class="predictedResult">
-      Predicted result {{ match.homeTeamBetScore }}-{{
-        match.awayTeamBetScore
-      }}.
+      {{ tranformResult(match.homeTeamBetScore, match.awayTeamBetScore) }}
     </div>
     <div class="earnedPoints">
       Points - {{ match.points | formatScore: match }}
