@@ -113,14 +113,14 @@ export class BetSectionComponent implements OnInit {
   }
 
   submitBet(key, round) {
-    this.fetchService.getUser().subscribe(data => {
-      console.log(data);
-      this.fetchService.pushFBData("table", {
-        displayName: data.displayName,
-        userId: data.userID,
-        points: 0
-      });
-    });
+    // this.fetchService.getUser().subscribe(data => {
+    //   console.log(data);
+    //   this.fetchService.pushFBData("table", {
+    //     displayName: data.displayName,
+    //     userId: data.userID,
+    //     points: 0
+    //   });
+    // });
     this.store.select(getSelectedBetMatches).subscribe(data => {
       this.betSectionService.submitBetMethod(key, round, { matches: data });
     });
