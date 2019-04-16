@@ -24,6 +24,7 @@ interface User {
 @Injectable({ providedIn: "root" })
 export class AuthService {
   user: Observable<User>;
+  users$;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -40,6 +41,11 @@ export class AuthService {
         }
       })
     );
+
+    // this.afs
+    //   .collection("users")
+    //   .valueChanges()
+    //   .subscribe(console.log);
   }
 
   googleLogin() {

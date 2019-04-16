@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output
+} from "@angular/core";
 import { BetSectionService } from "./bet-section.service";
 import { AngularFireList } from "@angular/fire/database";
 import { first, map, switchMap, take, tap } from "rxjs/operators";
