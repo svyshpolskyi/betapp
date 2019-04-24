@@ -24,8 +24,10 @@ export class AdminCustomMatchComponent implements OnInit {
   match: Object = {};
   filteredHomeTeams$;
   filteredAwayTeams$;
+  filteredLeagues$;
   matchDate$;
   autoCompleteArray;
+  lastRound$;
   constructor(
     private fetchService: FetchService,
     private adminCustomMatchService: AdminCustomMatchService,
@@ -34,17 +36,23 @@ export class AdminCustomMatchComponent implements OnInit {
   ) {}
   lastRoundId;
   ngOnInit() {
-    this.adminCustomMatchService.getLastRoundMatchesKey().subscribe(key => {
-      this.lastRoundId = key;
-    });
+    this.lastRound$ = this.adminCustomMatchService
+      .getLastRoundMatchesKey()
+      .subscribe(key => {
+        this.lastRoundId = key;
+      });
     this.form = this.fb.group({
       homeTeam: [null, Validators.required],
+      homeTeam_id: [null, Validators.required],
       homeTeamLogo: [null, Validators.required],
       awayTeam: [null, Validators.required],
+      awayTeam_id: [null, Validators.required],
       awayTeamLogo: [null, Validators.required],
       matchDate: [null, Validators.required],
       matchTime: [null, Validators.required],
       leagueCountry: [null, Validators.required],
+      leagueLogo: [null, Validators.required],
+      league_id: [null, Validators.required],
       round: [null, Validators.required]
     });
     this.filteredHomeTeams$ = this.adminCustomMatchService
@@ -56,6 +64,13 @@ export class AdminCustomMatchComponent implements OnInit {
       );
     this.filteredAwayTeams$ = this.adminCustomMatchService
       .filterTeam(this.form, "awayTeam")
+      .pipe(
+        tap(res => {
+          this.autoCompleteArray = res;
+        })
+      );
+    this.filteredLeagues$ = this.adminCustomMatchService
+      .filterLeague(this.form, "leagueCountry")
       .pipe(
         tap(res => {
           this.autoCompleteArray = res;
@@ -83,19 +98,31 @@ export class AdminCustomMatchComponent implements OnInit {
     //   .subscribe(data => {
     //     this.fetchService.updateFBData1("data", "teamLogos", data["api"].teams);
     //   });
+    console.log(this.form.value.homeTeam_id, this.form.value.awayTeam_id);
     this.store.dispatch(
-      new MatchActions.AddMatches({
-        homeTeam: this.form.value.homeTeam,
-        awayTeam: this.form.value.awayTeam,
-        event_date: `${this.adminCustomMatchService.tranformDate(
-          this.form.value.matchDate
-        )}T${this.form.value.matchTime}`,
-        fixture_id: `${this.form.value.matchDate.getDate()}${Math.round(
-          Math.random() * 1000
-        )}`,
-        selected: true
+      new MatchActions.LoadMatchesSuccess({
+        date: this.form.value.matchDate,
+        matches: [
+          {
+            homeTeam: this.form.value.homeTeam,
+            homeTeam_id: this.form.value.homeTeam_id,
+            awayTeam: this.form.value.awayTeam,
+            awayTeam_id: this.form.value.awayTeam_id,
+            event_date: `${this.adminCustomMatchService.tranformDate(
+              this.form.value.matchDate
+            )}T${this.form.value.matchTime}`,
+            fixture_id: `${this.form.value.matchDate.getDate()}${Math.round(
+              Math.random() * 1000
+            )}`,
+            league_id: this.form.value.league_id,
+            round: this.form.value.round,
+            selected: true
+          }
+        ]
       })
     );
+
+    this.lastRound$.unsubscribe();
     // this.fetchService.pushFBData("test", {
     //   ...this.form.value,
     //   event_date: `${this.adminCustomMatchService.tranformDate(
@@ -104,11 +131,28 @@ export class AdminCustomMatchComponent implements OnInit {
     // });
   }
 
-  updateLogos(data, playingSide) {
+  updateTeamLogos(data, playingSide) {
     this.form.patchValue({
       [`${playingSide}Logo`]: this.autoCompleteArray.filter(
         team => team.name === data.option.value
-      )[0]["logo"]
+      )[0]["logo"],
+      [`${playingSide}_id`]: this.autoCompleteArray.filter(
+        team => team.name === data.option.value
+      )[0]["team_id"]
+    });
+  }
+
+  updateLeagueLogo(data) {
+    console.log(data.option.value);
+    this.form.patchValue({
+      leagueLogo: this.autoCompleteArray.filter(
+        league =>
+          `${league.league_country} ${league.league_name}` === data.option.value
+      )[0]["league_logo"],
+      league_id: this.autoCompleteArray.filter(
+        league =>
+          `${league.league_country} ${league.league_name}` === data.option.value
+      )[0]["league_id"]
     });
   }
 }

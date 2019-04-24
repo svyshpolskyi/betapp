@@ -2,12 +2,14 @@ div mat-form-field {
   padding-right: 10px;
 }
 
-.teamLogo img {
+.teamLogo img,
+.leagueLogo img {
   max-width: 50px;
   max-height: 50px;
 }
 
-.teamLogoImg {
+.teamLogoImg,
+.leagueLogoImg {
   width: 50px;
   text-align: center;
 }

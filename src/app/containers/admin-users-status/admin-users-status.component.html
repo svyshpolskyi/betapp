@@ -1,0 +1,17 @@
+<h5 class="text-center">Submitted bets status</h5>
+<div *ngIf="(usersStatus$ | async) as usersStatus">
+  <div
+    class="row d-flex justify-content-center"
+    *ngFor="let user of usersStatus"
+  >
+    <div class="col-md-5 usersStatus">
+      <div class="userName">{{ user.name }}</div>
+      <div
+        [ngClass]="{
+          submitted: user.isBetSubmitted,
+          notSubmitted: !user.isBetSubmitted
+        }"
+      ></div>
+    </div>
+  </div>
+</div>

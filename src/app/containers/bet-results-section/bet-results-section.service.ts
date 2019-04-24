@@ -59,13 +59,16 @@ export class BetResultsSectionService {
         );
       }),
       map(data => {
+        console.log(data);
         return {
           currentRound: data.round,
           matches: data.matches.map(match => {
-            match.homeTeamBetScore =
-              data.bets["matches"][match.fixture_id].homeTeamBetScore;
-            match.awayTeamBetScore =
-              data.bets["matches"][match.fixture_id].awayTeamBetScore;
+            match.homeTeamBetScore = data.bets["matches"]
+              ? data.bets["matches"][match.fixture_id].homeTeamBetScore
+              : "n/a";
+            match.awayTeamBetScore = data.bets["matches"]
+              ? data.bets["matches"][match.fixture_id].awayTeamBetScore
+              : "n/a";
             match.points = this.helpersService.calculatePoints(
               match.goalsHomeTeam,
               match.goalsAwayTeam,

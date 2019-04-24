@@ -69,6 +69,7 @@ import {
   MatSelectModule
 } from "@angular/material";
 import { DatePipe } from "@angular/common";
+import { AdminUsersStatusComponent } from "./containers/admin-users-status/admin-users-status.component";
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { DatePipe } from "@angular/common";
     BetResultsSectionComponent,
     BetResultsComponent,
     BetTableComponent,
-    AdminCustomMatchComponent
+    AdminCustomMatchComponent,
+    AdminUsersStatusComponent
   ],
   imports: [
     BrowserModule,

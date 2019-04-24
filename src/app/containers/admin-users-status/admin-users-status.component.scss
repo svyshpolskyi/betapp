@@ -1,0 +1,13 @@
+.usersStatus {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin: 5px 0;
+}
+
+.submitted {
+  background-color: #00ff68;
+}
+
+.notSubmitted {
+  background-color: red;
+}

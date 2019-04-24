@@ -17,7 +17,7 @@
       </mat-form-field>
       <mat-autocomplete
         #homeTeam="matAutocomplete"
-        (optionSelected)="updateLogos($event, 'homeTeam')"
+        (optionSelected)="updateTeamLogos($event, 'homeTeam')"
       >
         <mat-option
           *ngFor="let team of (filteredHomeTeams$ | async)"
@@ -39,6 +39,12 @@
         />
       </mat-form-field>
     </div>
+    <input
+      id="homeTeam_id"
+      required
+      formControlName="homeTeam_id"
+      type="hidden"
+    />
     <div class="col-md-6 teamLogo" *ngIf="form.get('homeTeamLogo').value">
       <div class="teamLogoImg">
         <img [src]="form.get('homeTeamLogo').value" />
@@ -61,7 +67,7 @@
       </mat-form-field>
       <mat-autocomplete
         #awayTeam="matAutocomplete"
-        (optionSelected)="updateLogos($event, 'awayTeam')"
+        (optionSelected)="updateTeamLogos($event, 'awayTeam')"
       >
         <mat-option
           *ngFor="let team of (filteredAwayTeams$ | async)"
@@ -83,6 +89,12 @@
         />
       </mat-form-field>
     </div>
+    <input
+      id="awayTeam_id"
+      required
+      formControlName="awayTeam_id"
+      type="hidden"
+    />
     <div class="col-md-6 teamLogo" *ngIf="form.get('awayTeamLogo').value">
       <div class="teamLogoImg">
         <img [src]="form.get('awayTeamLogo').value" />
@@ -120,11 +132,43 @@
         ><input
           matInput
           id="leagueCountry"
+          [matAutocomplete]="leagueCountry"
           required
           formControlName="leagueCountry"
         />
       </mat-form-field>
+      <mat-autocomplete
+        #leagueCountry="matAutocomplete"
+        (optionSelected)="updateLeagueLogo($event)"
+      >
+        <mat-option
+          *ngFor="let league of (filteredLeagues$ | async)"
+          value="{{league.league_country}} {{league.league_name}}"
+        >
+          {{ league.league_country }} {{ league.league_name }}
+        </mat-option>
+      </mat-autocomplete>
     </div>
+    <div class="col-md-6" *ngIf="!form.get('leagueLogo').value">
+      <mat-form-field class="example-full-width">
+        <mat-label>League logo</mat-label>
+        <label for="leagueLogo"></label
+        ><input
+          matInput
+          id="leagueLogo"
+          required
+          formControlName="leagueLogo"
+        />
+      </mat-form-field>
+    </div>
+    <input id="league_id" required formControlName="league_id" type="hidden" />
+    <div class="col-md-6 leagueLogo" *ngIf="form.get('leagueLogo').value">
+      <div class="leagueLogoImg">
+        <img [src]="form.get('leagueLogo').value" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-6">
       <mat-form-field class="example-full-width">
         <mat-label>Round</mat-label>

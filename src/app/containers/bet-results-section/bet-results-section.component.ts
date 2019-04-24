@@ -51,6 +51,7 @@ export class BetResultsSectionComponent implements OnInit {
           );
       }),
       tap(data => {
+        console.log(data);
         this.isAnyResultExist = data["matches"].find(
           match => match.goalsHomeTeam && match.goalsAwayTeam
         );

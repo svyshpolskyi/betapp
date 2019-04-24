@@ -30,6 +30,23 @@ export class AdminCustomMatchService {
     );
   }
 
+  filterLeague(form, fieldId) {
+    return form.get(fieldId).valueChanges.pipe(
+      debounceTime(3000),
+      switchMap(value => {
+        return this.fetchService
+          .getFBData("data/leagues")
+          .pipe(
+            map(leagues =>
+              leagues.filter(league =>
+                league["league_country"].toLowerCase().includes(value)
+              )
+            )
+          );
+      })
+    );
+  }
+
   tranformDate(date) {
     return this.datePipe.transform(date, "yyyy-MM-dd");
   }

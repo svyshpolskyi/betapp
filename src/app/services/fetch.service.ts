@@ -29,7 +29,7 @@ export class FetchService {
     this.footerLeaguesURL = urls.leagues;
     this.headers = new HttpHeaders({
       Accept: "application/json",
-      "X-Mashape-Key": "UP2lb9meHZmshbVsGSJ0cwsIJZtgp1CqNEdjsnk4Fc3ggOLKHq"
+      "X-Mashape-Key": "c18fe30c4dmsh5bba5fb8d4ac6d8p13cca2jsn97fb35fed001"
     });
   }
 

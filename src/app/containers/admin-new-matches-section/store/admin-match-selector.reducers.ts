@@ -26,6 +26,13 @@ export function selectMatchesReducer(
           }
           return matchDay;
         })
+        // loadedMatches: [
+        //   ...state.loadedMatches,
+        //   {
+        //     date: action.payload.event_date.split("T")[0],
+        //     matches: [action.payload]
+        //   }
+        // ]
       };
     case MatchActions.LOAD_MATCHES:
       return {
