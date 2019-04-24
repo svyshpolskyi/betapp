@@ -64,7 +64,11 @@ export const getCurrentRound = createSelector(
 export const getMergedMatches = createSelector(
   getBetAndLatestBetReducer,
   state => {
-    if (state.betMatches.matches && state.latestBet) {
+    if (
+      state.betMatches.matches &&
+      state.latestBet &&
+      state.latestBet["matches"]
+    ) {
       state.betMatches.matches.map(match => {
         match.homeTeamBetScore =
           state.latestBet.matches[match.fixture_id].homeTeamBetScore;
