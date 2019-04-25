@@ -50,7 +50,6 @@ export class BetTableComponent implements OnInit {
   }
 
   selectChanged(event) {
-    console.log(event);
     this.selectedRoundSubject$.next(event.value);
   }
 

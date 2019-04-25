@@ -20,11 +20,8 @@ export class BetTableService {
           );
         } else {
           return this.fetchService.getFBDataAsObj("/bets").pipe(
-            tap(console.log),
             map(resp => {
-              console.log(data);
               return data.map(user => {
-                console.log(resp[user["userId"]][round].points);
                 user["points"] = resp[user["userId"]][round].points;
                 return user;
               });
