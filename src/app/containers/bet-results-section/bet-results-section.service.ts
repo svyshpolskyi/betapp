@@ -59,7 +59,6 @@ export class BetResultsSectionService {
         );
       }),
       map(data => {
-        console.log(data);
         return {
           currentRound: data.round,
           matches: data.matches.map(match => {

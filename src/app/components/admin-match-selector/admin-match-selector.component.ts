@@ -75,7 +75,6 @@ export class AdminMatchSelectorComponent implements OnInit {
                 .getFixtures(data["date"])
                 .pipe(
                   catchError(err => {
-                    console.log(err);
                     this.store.dispatch(new MatchActions.LoadMatchesFailure());
                     return of({ error: true });
                   })

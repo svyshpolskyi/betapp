@@ -85,20 +85,6 @@ export class AdminCustomMatchComponent implements OnInit {
   }
 
   addMatch(form) {
-    // return this.fetchService.updateFBData(
-    //   `data/tournament/${this.lastRoundId}/matches/`,
-    //   "8",
-    //   {
-    //     ...data,
-    //     matchDate: `${data.matchDate}`
-    //   }
-    // );
-    // this.fetchService
-    //   .getApiData("https://api-football-v1.p.mashape.com/teams/league/403")
-    //   .subscribe(data => {
-    //     this.fetchService.updateFBData1("data", "teamLogos", data["api"].teams);
-    //   });
-    console.log(this.form.value.homeTeam_id, this.form.value.awayTeam_id);
     this.store.dispatch(
       new MatchActions.LoadMatchesSuccess({
         date: this.form.value.matchDate,
@@ -123,12 +109,6 @@ export class AdminCustomMatchComponent implements OnInit {
     );
 
     this.lastRound$.unsubscribe();
-    // this.fetchService.pushFBData("test", {
-    //   ...this.form.value,
-    //   event_date: `${this.adminCustomMatchService.tranformDate(
-    //     this.form.value.matchDate
-    //   )}T${this.form.value.matchTime}`
-    // });
   }
 
   updateTeamLogos(data, playingSide) {
@@ -143,7 +123,6 @@ export class AdminCustomMatchComponent implements OnInit {
   }
 
   updateLeagueLogo(data) {
-    console.log(data.option.value);
     this.form.patchValue({
       leagueLogo: this.autoCompleteArray.filter(
         league =>

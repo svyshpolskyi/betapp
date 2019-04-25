@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FetchService } from "../../services/fetch.service";
-import { map, tap } from "rxjs/operators";
+import { map, switchMap, tap } from "rxjs/operators";
+import { of } from "rxjs";
 
 @Injectable({
   providedIn: "root"
@@ -8,12 +9,33 @@ import { map, tap } from "rxjs/operators";
 export class BetTableService {
   constructor(private fetchService: FetchService) {}
 
-  getTableData() {
+  getTableData(round) {
     return this.fetchService.getFBData("/table").pipe(
-      map(data => {
-        return data.sort((a, b) => {
-          return b["points"] - a["points"];
-        });
+      switchMap(data => {
+        if (round === "all") {
+          return of(
+            data.sort((a, b) => {
+              return b["points"] - a["points"];
+            })
+          );
+        } else {
+          return this.fetchService.getFBDataAsObj("/bets").pipe(
+            tap(console.log),
+            map(resp => {
+              console.log(data);
+              return data.map(user => {
+                console.log(resp[user["userId"]][round].points);
+                user["points"] = resp[user["userId"]][round].points;
+                return user;
+              });
+            }),
+            map(dat => {
+              return dat.sort((a, b) => {
+                return b["points"] - a["points"];
+              });
+            })
+          );
+        }
       }),
       map(resp => {
         return resp.map((dat, index) => {
@@ -22,4 +44,6 @@ export class BetTableService {
       })
     );
   }
+
+  getTableDataByRound(round) {}
 }
