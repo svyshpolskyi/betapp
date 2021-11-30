@@ -2,5 +2,7 @@
   "extends": [
     "config:base"
   ],
-  "assignees": ["svyshpolskyi"]
+  "timezone": "Etc/GMT",
+  "assignees": ["svyshpolskyi"],
+  "schedule": ["every 20 minutes starting on the 2nd min"]
 }
