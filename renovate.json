@@ -4,5 +4,5 @@
   ],
   "timezone": "Etc/GMT",
   "assignees": ["svyshpolskyi"],
-  "schedule": ["every 20 minutes starting on the 2nd min"]
+  "schedule": ["every 20 mins starting on the 2nd min"]
 }
