@@ -6,6 +6,6 @@
   "assignees": ["svyshpolskyi"],
   "schedule": ["every 14 days"],
   "packageRules": {
-    "matchDepTypes": ["peerDependencies"]
+    "matchDepTypes": ["dependencies"]
   }
 }
