@@ -5,8 +5,5 @@
   "timezone": "Etc/GMT",
   "assignees": ["svyshpolskyi"],
   "schedule": ["every 14 days"],
-  "packageRules": {
-    "matchDepTypes": ["devDependencies"]
-  },
   "dependencyDashboardApproval": true
 }
