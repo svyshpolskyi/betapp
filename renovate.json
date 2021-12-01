@@ -6,7 +6,7 @@
   "assignees": ["svyshpolskyi"],
   "schedule": ["every 14 days"],
   "packageRules": {
-    "matchDepTypes": ["dependencies"]
+    "matchDepTypes": ["devDependencies"]
   },
   "dependencyDashboardApproval": true
 }
