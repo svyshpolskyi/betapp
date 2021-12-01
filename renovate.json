@@ -4,8 +4,5 @@
   ],
   "timezone": "Etc/GMT",
   "assignees": ["svyshpolskyi"],
-  "schedule": ["every 14 days"],
-  "packageRules": {
-    "dependencyDashboardApproval": true
-  },
+  "dependencyDashboardApproval": true
 }
